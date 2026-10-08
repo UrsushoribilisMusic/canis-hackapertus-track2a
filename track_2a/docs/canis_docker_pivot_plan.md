@@ -24,8 +24,8 @@ Ollama/llama.cpp is convenient for generation, but Canis needs intermediate hidd
 
 Candidate model:
 
-- `swiss-ai/Apertus-v1.5-8B-Instruct`
-- Fallback if model naming/access changes: the current Swiss AI Apertus 8B instruct checkpoint required by HackApertus.
+- `swiss-ai/Apertus-v1.5-8B`
+- Related checkpoints visible in the Hugging Face registry: `swiss-ai/Apertus-v1.5-8B-base`, `swiss-ai/Apertus-v1.5-8B-SFT`, `swiss-ai/Apertus-v1.5-8B-DPO`, `swiss-ai/Apertus-v1.5-8B-RLVR`.
 
 ## Target Architecture
 
@@ -118,7 +118,7 @@ browser UI dog/avatar + token readout
 2. Volume/cache for Hugging Face model files.
 3. Environment:
    - `HF_TOKEN` if the model requires gated access.
-   - `CANIS_MODEL_ID=swiss-ai/Apertus-v1.5-8B-Instruct`
+   - `CANIS_MODEL_ID=swiss-ai/Apertus-v1.5-8B`
    - `CANIS_DEVICE=auto`
 4. `Makefile`:
    - `make run` -> `docker compose up --build`
