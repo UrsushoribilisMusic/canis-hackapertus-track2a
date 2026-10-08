@@ -147,11 +147,89 @@ Minimum useful prototype:
 
 ## Recommended Immediate Sequence
 
-1. Copy the template into a new public submission repo.
-2. Add minimal Docker/FastAPI skeleton with mock Apertus response.
-3. Build the Angular UI once and confirm it can run in browser mode.
-4. Add HTTP-backed `CanisPlugin`.
-5. Wire Docker backend to the UI using the existing event contract.
-6. Add real Apertus 8B loading.
-7. Port disposition engine from lexical fallback -> hidden-state entropy -> seed-vector scoring.
+1. Derisk Docker first.
+   - This is the submission contract: judges should be able to run `make run`.
+   - Current local status on 2026-10-08: `docker`, `colima`, and `podman` are not visible in the shell, and no Docker/OrbStack/Rancher/Podman app was found in `/Applications`.
+   - First target is to make the existing mock prototype run inside Docker before adding model complexity.
+2. Confirm model availability and loading.
+   - Current local cache status on 2026-10-08: `swiss-ai/Apertus-v1.1-4B-Instruct` is cached, but `swiss-ai/Apertus-v1.5-8B` is not.
+   - Download/load `swiss-ai/Apertus-v1.5-8B` in the same runtime path the Docker submission will use.
+   - Record memory, cold-start time, first-token latency, and whether the architecture exposes logits, hidden states, final norm, and `lm_head`.
+3. Add real Apertus generation.
+   - Replace mock answer generation with a minimal Transformers generation path.
+   - Keep lexical fallback disposition active so the demo remains usable if the forward lens is not ready.
+4. Port the disposition engine from Swift/MLX to Python/PyTorch.
+   - Source files:
+     - `canis-ios/Canis/Services/DispositionReadoutEngine.swift`
+     - `canis-ios/Canis/Models/Disposition.swift`
+     - `canis-ios/CanisTests/DispositionReadoutTests.swift`
+   - Preserve the public web contract from `bitforge-canis/src/app/types/canis-plugin.interface.ts`.
+5. Build the Angular UI once and confirm it can run in browser mode.
+6. Add HTTP-backed `CanisPlugin`.
+7. Wire Docker backend to the UI using the existing event contract.
 8. Fill `technical_report.md` with architecture, model usage, limitations and reproducibility.
+
+## Disposition Port Plan
+
+### Contract
+
+The Docker backend should return the web contract:
+
+- `disposition`: `confident | unsure | curious | concerned | reluctant | warm | neutral`
+- `certainty`: `0..1`, the inverse of normalized entropy
+- `tokens`: up to six `{ token, weight }` entries
+- `source`: `forwardLens | lexicalFallback`
+
+The iOS engine uses internal names:
+
+- `idle` maps to web `neutral`
+- `uncertain` maps to web `unsure`
+- `concern` maps to web `concerned`
+- `mischief` is internal/safety-research only unless the web contract is expanded.
+
+### Python Modules
+
+Add `track_2a/src/backend/canis_disposition/`:
+
+- `types.py`: dataclasses/enums for dispositions, readouts, tokens.
+- `lexical.py`: direct Python port of the current Swift lexical fallback.
+- `entropy.py`: normalized softmax entropy from logits.
+- `resolver.py`: seed-score thresholding, safety override, optional entropy gate.
+- `forward_lens.py`: hidden-state projection and seed-vector cosine scoring.
+- `artifacts.py`: load or generate `seed_vectors.json` and `jlens_projection.json`.
+- `tests/`: Python equivalents of `DispositionReadoutTests.swift`.
+
+### Transformers Runtime
+
+Use Transformers/PyTorch rather than Ollama for the first reproducible implementation:
+
+```python
+model = AutoModelForCausalLM.from_pretrained(
+    "swiss-ai/Apertus-v1.5-8B",
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+)
+outputs = model(
+    input_ids,
+    attention_mask=attention_mask,
+    output_hidden_states=True,
+    use_cache=False,
+)
+```
+
+Required tensors:
+
+- `outputs.logits[:, -1, :]` for entropy and top token telemetry.
+- `outputs.hidden_states[layer][:, -1, :]` for the live hidden state.
+- `model.get_output_embeddings().weight` for the unembedding / `lm_head`.
+- final norm parameters after inspecting the loaded model architecture.
+
+### Porting Order
+
+1. Port lexical fallback and resolver exactly.
+2. Add Python tests matching the Swift tests.
+3. Add normalized entropy from real logits.
+4. Add top-token telemetry from real logits.
+5. Add direct logit-lens readout from selected hidden layer.
+6. Add persisted seed vectors and cosine scoring.
+7. Add the closed-form final-norm/J-space approximation once the Apertus layer/norm structure is confirmed.
