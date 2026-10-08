@@ -44,7 +44,7 @@
       "READOUT": "Disposition-Readout",
       "NO_ACCOUNT": "Kein Konto",
       "MORE_TITLE": "Wie der Readout funktioniert",
-      "MORE_TEXT": "Canis liest interne Modellsignale wie Next-Token-Unsicherheit, Bewegungen im Hidden State und jacobian-artige Sensitivität. Der Hund tut nicht so, als würde er fühlen. Er ist ein Live-Instrument für die Haltung des Modells zu seiner eigenen Antwort."
+      "MORE_TEXT": "Canis betrachtet die Antwort als Trajektorie durch das Modell, nicht nur als ausgegebenen Text. Es kombiniert Next-Token-Entropie, Hidden-State-Richtung und jacobian-artige Sensitivität gegen Dispositionsvektoren, um sichtbar zu machen, ob das Modell konvergiert, zögert, exploriert, eine Sicherheitsgrenze erreicht oder flüssig antwortet."
     },
     "DOG": {
       "TITLE": "Das ist Canis.",

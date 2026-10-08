@@ -44,7 +44,7 @@
       "READOUT": "Disposition readout",
       "NO_ACCOUNT": "No account",
       "MORE_TITLE": "How the readout works",
-      "MORE_TEXT": "Canis reads internal model signals such as next-token uncertainty, hidden-state movement, and Jacobian-style sensitivity. The dog is not pretending to feel. It is a live instrument panel for the model's stance on its own answer."
+      "MORE_TEXT": "Canis treats the answer as a trajectory through the model, not just emitted text. It combines next-token entropy, hidden-state direction, and Jacobian-style sensitivity against disposition vectors to expose whether the model is converging, hesitating, exploring, hitting a safety boundary, or answering smoothly."
     },
     "DOG": {
       "TITLE": "Meet Canis.",
