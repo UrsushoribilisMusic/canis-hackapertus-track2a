@@ -34,6 +34,21 @@ will run it, without relying on anything already installed on your machine.
 
 Requirements: `runtime, hardware, API keys, model weights`
 
+Current Canis status:
+
+- `make run` starts a Dockerized FastAPI backend and browser demo.
+- The default runtime is a deterministic mock plus the Canis lexical fallback
+  disposition readout.
+- `make test` runs the stdlib Python unit tests for the disposition resolver.
+- `make probe-model` builds the heavier Transformers image and probes Apertus
+  tensors using the host Hugging Face cache mounted into Docker.
+- `swiss-ai/Apertus-v1.5-8B` is gated on Hugging Face. Export `HF_TOKEN`
+  with an authorized token before probing or running the real model path.
+- Set `CANIS_ENABLE_MODEL=1` only after the image/runtime includes
+  `torch`, `transformers`, and the `swiss-ai/Apertus-v1.5-8B` cache.
+- The submission target remains Apertus 8B with hidden-state/J-space scoring;
+  the fallback keeps the UI and API contract stable while that path is wired.
+
 ## Data
 The `data/` directory must not exceed 100 MB.
 

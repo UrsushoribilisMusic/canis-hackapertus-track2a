@@ -153,8 +153,11 @@ Minimum useful prototype:
    - First target is to make the existing mock prototype run inside Docker before adding model complexity.
 2. Confirm model availability and loading.
    - Current local cache status on 2026-10-08: `swiss-ai/Apertus-v1.1-4B-Instruct` is cached, but `swiss-ai/Apertus-v1.5-8B` is not.
+   - Probe status on 2026-10-08: `swiss-ai/Apertus-v1.5-8B` returned a Hugging Face gated-repo `403`; the Docker command now passes `HF_TOKEN` through for an authorized account.
+   - Control probe status on 2026-10-08: `swiss-ai/Apertus-v1.1-4B-Instruct` loaded successfully in Docker from the mounted local cache. It exposed logits `[1, 13, 131072]`, 25 hidden-state tensors, final hidden shape `[1, 13, 3072]`, and output embeddings `[131072, 3072]` via `ApertusForCausalLM`.
    - Download/load `swiss-ai/Apertus-v1.5-8B` in the same runtime path the Docker submission will use.
    - Record memory, cold-start time, first-token latency, and whether the architecture exposes logits, hidden states, final norm, and `lm_head`.
+   - Use `make probe-model` for this heavy path. It uses `Dockerfile.model`, mounts the host Hugging Face cache, and prints the tensor shapes required by the disposition lens.
 3. Add real Apertus generation.
    - Replace mock answer generation with a minimal Transformers generation path.
    - Keep lexical fallback disposition active so the demo remains usable if the forward lens is not ready.
