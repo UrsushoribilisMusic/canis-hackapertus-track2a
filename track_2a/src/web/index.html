@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canis Apertus Docker Prototype</title>
+  <style>
+    :root {
+      --bg: #f7f8f8;
+      --ink: #1f2428;
+      --muted: #667078;
+      --line: #d9dedf;
+      --panel: #fff;
+      --teal: #0f766e;
+      --amber: #9a6a13;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(100% - 32px, 980px);
+      margin: 0 auto;
+      padding: 42px 0;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 28px;
+      align-items: start;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(32px, 6vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0;
+      color: #3a4146;
+      font-size: 18px;
+    }
+
+    .dog {
+      min-height: 190px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      display: grid;
+      place-items: center;
+      font-size: 72px;
+    }
+
+    .status {
+      margin-top: 10px;
+      color: var(--muted);
+      font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-align: center;
+    }
+
+    section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 22px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      border: 1px solid var(--line);
+      padding: 12px;
+      color: var(--ink);
+      font: inherit;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 12px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:disabled { opacity: .6; cursor: not-allowed; }
+
+    .answer {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: #333b40;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric span { color: var(--muted); }
+    .metric strong { text-align: right; }
+
+    .tokens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .token {
+      border: 1px solid var(--line);
+      padding: 5px 8px;
+      color: var(--teal);
+      background: #f8fbfb;
+      font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      header,
+      section { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Canis on Apertus, in Docker.</h1>
+        <p class="lead">
+          A browser prototype for the HackApertus submission path. The final build will run
+          Apertus 8B in the container and compute the Canis disposition readout server-side.
+        </p>
+      </div>
+      <aside>
+        <div class="dog" id="dog" aria-label="Canis disposition avatar">🐶</div>
+        <div class="status" id="status">prototype / lexicalFallback</div>
+      </aside>
+    </header>
+
+    <section>
+      <div class="card">
+        <label for="prompt">Prompt</label>
+        <textarea id="prompt">Explain why a model might sound confident while still being wrong.</textarea>
+        <button id="ask">Ask Canis</button>
+        <div class="answer" id="answer">
+          The Docker prototype is ready. Ask a question to see the API contract.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="metric"><span>Disposition</span><strong id="disposition">neutral</strong></div>
+        <div class="metric"><span>Certainty</span><strong id="certainty">0%</strong></div>
+        <div class="metric"><span>Source</span><strong id="source">none</strong></div>
+        <div class="tokens" id="tokens"></div>
+        <p class="note">
+          The current prototype returns a deterministic lexical fallback. The next backend
+          replaces it with Apertus hidden-state/J-space scoring while preserving this response shape.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const moodDog = {
+      confident: '🐕',
+      unsure: '🐶?',
+      curious: '🦮',
+      concerned: '🐶!',
+      reluctant: '🐾',
+      warm: '🐕‍🦺',
+      neutral: '🐶',
+    };
+
+    async function ask() {
+      const button = document.getElementById('ask');
+      const prompt = document.getElementById('prompt').value;
+      button.disabled = true;
+      button.textContent = 'Thinking...';
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        const readout = data.readout;
+        document.getElementById('answer').textContent = data.answer;
+        document.getElementById('disposition').textContent = readout.disposition;
+        document.getElementById('certainty').textContent = `${Math.round(readout.certainty * 100)}%`;
+        document.getElementById('source').textContent = readout.source;
+        document.getElementById('status').textContent = `prototype / ${readout.source}`;
+        document.getElementById('dog').textContent = moodDog[readout.disposition] || moodDog.neutral;
+        document.getElementById('tokens').innerHTML = readout.tokens
+          .map((item) => `<span class="token">${item.token} ${item.weight}</span>`)
+          .join('');
+      } catch (err) {
+        document.getElementById('answer').textContent = `Error: ${err.message}`;
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Ask Canis';
+      }
+    }
+
+    document.getElementById('ask').addEventListener('click', ask);
+  </script>
+</body>
+</html>
