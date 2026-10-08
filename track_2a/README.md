@@ -39,6 +39,9 @@ Current Canis status:
 - `make run` starts a Dockerized FastAPI backend and browser demo.
 - The default runtime is a deterministic mock plus the Canis lexical fallback
   disposition readout.
+- `make run-model` starts the same browser/API app backed by
+  `swiss-ai/Apertus-v1.5-8B` through Swiss AI's Transformers branch. It mounts
+  the host Hugging Face cache and sets `CANIS_ENABLE_MODEL=1`.
 - `make test` runs the stdlib Python unit tests for the disposition resolver.
 - `make probe-model` builds the heavier Transformers image and probes Apertus
   tensors using the host Hugging Face cache mounted into Docker.
@@ -47,10 +50,13 @@ Current Canis status:
 - Apertus 1.5 is not supported by the released Transformers package yet; the
   model probe installs Swiss AI's pinned Transformers branch with text/vision
   support. Audio extras are intentionally omitted from the probe image.
-- Set `CANIS_ENABLE_MODEL=1` only after the image/runtime includes
-  `torch`, `transformers`, and the `swiss-ai/Apertus-v1.5-8B` cache.
+- Set `CANIS_MAX_NEW_TOKENS` to tune latency. The default real-model path uses
+  `32` and prompts the model to answer in two short complete sentences because
+  local CPU/offload generation is slow; a smoke test with `8` tokens completed
+  and returned `Hello, Canis.`
 - The submission target remains Apertus 8B with hidden-state/J-space scoring;
-  the fallback keeps the UI and API contract stable while that path is wired.
+  the current real-model path generates answers with Apertus and still uses the
+  lexical fallback for the disposition readout while J-space scoring is wired.
 - `src/web/` contains the built Canis Angular browser app. The macOS host build
   currently crashes in native Angular cache dependencies, so this build was
   produced in a Linux `node:22.22.3-bookworm` container.

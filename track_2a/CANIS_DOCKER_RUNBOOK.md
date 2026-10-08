@@ -1,0 +1,89 @@
+# Canis Docker Runbook
+
+This directory is the HackApertus Track 2A Docker target for Canis.
+
+## Prerequisites
+
+- Docker or OrbStack running.
+- Hugging Face access to `swiss-ai/Apertus-v1.5-8B`.
+- `HF_TOKEN` exported in the shell for first-time model access.
+- The Hugging Face cache available at `~/.cache/huggingface`.
+
+## Fast UI/API Smoke Test
+
+This starts the Dockerized Canis web app with the deterministic mock runtime.
+It is fast and useful for checking the UI, routes, and API contract.
+
+```bash
+cd /Users/miguelrodriguez/projects/canis-hackapertus-track2a/track_2a
+make run
+```
+
+Open:
+
+```text
+http://127.0.0.1:8080/
+```
+
+## Real Apertus 8B Runtime
+
+This starts the same web app backed by `swiss-ai/Apertus-v1.5-8B` through
+Swiss AI's pinned Transformers branch.
+
+```bash
+cd /Users/miguelrodriguez/projects/canis-hackapertus-track2a/track_2a
+export HF_TOKEN=...
+make run-model
+```
+
+The default real-model run uses:
+
+- `CANIS_ENABLE_MODEL=1`
+- `CANIS_MODEL_ID=swiss-ai/Apertus-v1.5-8B`
+- `CANIS_MAX_NEW_TOKENS=32`
+- host cache mounted from `~/.cache/huggingface`
+
+Override the token cap when needed:
+
+```bash
+CANIS_MAX_NEW_TOKENS=8 make run-model
+```
+
+## Health Checks
+
+```bash
+curl -sS http://127.0.0.1:8080/api/health
+curl -sS http://127.0.0.1:8080/api/models
+```
+
+Expected real-model health after the first successful chat request:
+
+```json
+{"ok":true,"model":"swiss-ai/Apertus-v1.5-8B","runtime":"transformers","model_loaded":true}
+```
+
+## Known Latency
+
+The Docker path currently uses PyTorch/Transformers with CPU/disk offload.
+The model loads successfully, but autoregressive generation is slow on the
+Mac Mini Docker runtime. A measured local run produced 8 tokens in about 79s.
+
+The iOS/MLX path is expected to be much faster on Apple hardware. For the
+HackApertus Docker target, keep prompts short and keep `CANIS_MAX_NEW_TOKENS`
+low unless a long wait is acceptable.
+
+## Current Readout Status
+
+The backend now generates answers with Apertus 8B in real-model mode. The Canis
+disposition readout still uses the lexical fallback while the hidden-state /
+Jacobian-space readout is being wired.
+
+## Useful Commands
+
+```bash
+docker ps
+docker logs --tail 120 canis-track2a
+docker stop canis-track2a
+make test
+make probe-model
+```

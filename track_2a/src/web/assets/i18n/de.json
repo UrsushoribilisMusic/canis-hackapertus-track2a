@@ -38,20 +38,35 @@
     "CONTINUE": "Weiter",
     "STEP": "Schritt {{current}} von {{total}}",
     "INTRO": {
-      "TITLE": "Eine KI, die auf deinem Telefon lebt.",
-      "TEXT": "Canis beantwortet deine Fragen und zeigt dir, wie sicher es sich ist. Es funktioniert offline, und nichts verlässt dein Gerät.",
+      "TITLE": "Schau unter die Haube einer KI-Antwort.",
+      "TEXT": "Canis beantwortet deine Fragen und zeigt die Disposition des Modells beim Denken: wann es sicher, unsicher, neugierig, vorsichtig, zurückhaltend oder warm ist.",
       "OFFLINE": "Funktioniert offline",
-      "NO_ACCOUNT": "Kein Konto"
+      "READOUT": "Disposition-Readout",
+      "NO_ACCOUNT": "Kein Konto",
+      "MORE_TITLE": "Wie der Readout funktioniert",
+      "MORE_TEXT": "Canis liest interne Modellsignale wie Next-Token-Unsicherheit, Bewegungen im Hidden State und jacobian-artige Sensitivität. Der Hund tut nicht so, als würde er fühlen. Er ist ein Live-Instrument für die Haltung des Modells zu seiner eigenen Antwort."
     },
     "DOG": {
       "TITLE": "Das ist Canis.",
-      "TEXT": "Während Canis antwortet, zeigt es, wie es zu seiner Antwort steht. Achte auf Farbe und Bezeichnung, so wie du ein Gesicht liest. Tippe auf den Hund, um seine Zustände zu sehen."
+      "TEXT": "Jeder Zustand ist ein Signal aus dem Modell, kein Gesichtsausdruck. Das Karussell läuft automatisch weiter; tippe auf den Hund, um die nächste Disposition zu sehen.",
+      "DESCRIPTION": {
+        "confident": "Das Modell ist intern stabil und seine nächsten Schritte sind konzentriert.",
+        "unsure": "Das Modell verteilt sich auf konkurrierende Fortsetzungen und sollte geprüft werden.",
+        "curious": "Das Modell erkundet, fragt nach Kontext oder öffnet eine neue Denkrichtung.",
+        "concerned": "Das Modell erkennt Risiko, Mehrdeutigkeit, Sicherheitsgrenzen oder sensible Folgen.",
+        "reluctant": "Das Modell wehrt sich gegen die Anfrage oder nähert sich einer Ablehnungsgrenze.",
+        "warm": "Das Modell ist kooperativ, unterstützend und reibungsarm unterwegs."
+      }
     },
     "MODEL": {
       "TITLE": "Modell wählen",
       "TEXT": "Damit denkt Canis. Es wird einmal geladen und funktioniert danach ohne Internet.",
       "WIFI": "Am besten im WLAN. Du kannst das später in den Einstellungen ändern.",
-      "BACKGROUND": "Der Download läuft im Hintergrund weiter."
+      "BACKGROUND": "Der Download läuft im Hintergrund weiter.",
+      "BACKEND_TITLE": "Apertus-Backend",
+      "BACKEND_TEXT": "Diese Demo nutzt Swiss AIs Apertus v1.5 8B Modell über das Docker-Backend.",
+      "BACKEND_NOTE": "In dieser Deployment-Variante ist kein Download auf das Telefon nötig.",
+      "BACKEND_BACKGROUND": "Das Backend übernimmt das Laden des Modells und den Canis-Disposition-Readout."
     }
   },
   "CHAT": {
@@ -84,6 +99,10 @@
     },
     "DOWNLOADING": "{{name}} wird geladen",
     "QUEUED": "Ich antworte, sobald der Download fertig ist.",
+    "THINKING_PANEL": {
+      "TITLE": "Apertus generiert die Antwort.",
+      "TEXT": "In dieser Docker-Demo braucht das 8B-Modell etwa eine Minute pro kurze Antwort. Canis zeigt den Disposition-Readout, sobald das Modell fertig ist."
+    },
     "RATE_PROMPT": "Hat Canis das richtig eingeschätzt?",
     "THUMBS_UP": "Canis hat richtig eingeschätzt",
     "THUMBS_DOWN": "Canis hat falsch eingeschätzt",
@@ -147,6 +166,7 @@
       "canis-mistralis": "Ein starker Allrounder von Mistral."
     },
     "ON_PHONE": "{{size}} auf diesem Telefon",
+    "ON_BACKEND": "vom Docker-Backend bereitgestellt",
     "NOT_DOWNLOADED": "{{size}} · nicht geladen",
     "FAILED": "Der Download wurde unterbrochen. Versuch es nochmals.",
     "DOWNLOAD": "Laden",
@@ -184,6 +204,8 @@
     "PRIVACY": "Datenschutz",
     "PRIVACY_TITLE": "Alles passiert auf deinem Telefon.",
     "PRIVACY_TEXT": "Nichts verlässt dein Gerät. Kein Konto, keine Cloud.",
+    "BACKEND_PRIVACY_TITLE": "Diese Demo läuft über das lokale Docker-Backend.",
+    "BACKEND_PRIVACY_TEXT": "Der Gesprächsverlauf bleibt in diesem Browser; Prompts gehen nur an das lokale Canis-Backend.",
     "ABOUT": "Über",
     "RESEARCH": "Die Forschung hinter Canis",
     "LICENCES": "Open-Source-Lizenzen",
@@ -193,6 +215,7 @@
     "HISTORY": "Verlauf",
     "SAVED_CONVERSATIONS": "Gespeicherte Gespräche",
     "SAVED_COUNT": "{{count}} auf diesem Telefon",
+    "SAVED_COUNT_BROWSER": "{{count}} in diesem Browser",
     "DELETE_HISTORY": "Ganzen Verlauf löschen",
     "DELETE_HISTORY_TITLE": "Ganzen Verlauf löschen?",
     "DELETE_HISTORY_TEXT": "Damit werden {{count}} Gespräche und die Einschätzungen des Hundes dazu von diesem Telefon entfernt. Das lässt sich nicht rückgängig machen.",

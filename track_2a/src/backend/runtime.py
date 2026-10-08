@@ -1,8 +1,9 @@
-"""Runtime selection for mock and future Apertus inference."""
+"""Runtime selection for mock and Apertus inference."""
 
 from __future__ import annotations
 
 import os
+import time
 from dataclasses import dataclass
 
 from backend.canis_disposition.lexical import lexical_readout
@@ -43,11 +44,12 @@ class MockRuntime(Runtime):
 
 
 class TransformersRuntime(Runtime):
-    """Optional Apertus runtime.
+    """Apertus 1.5 runtime backed by Swiss AI's Transformers branch.
 
-    This class is intentionally lazy and isolated. The Docker prototype should remain
-    runnable without the heavy model stack; set `CANIS_ENABLE_MODEL=1` only when the
-    image has `torch` and `transformers` installed and the model cache is available.
+    This class is intentionally lazy and isolated. The default Docker demo remains
+    runnable without the heavy model stack; use `make run-model` or set
+    `CANIS_ENABLE_MODEL=1` when the image has `torch`, Swiss AI's Transformers branch,
+    and access to the gated Apertus cache.
     """
 
     def __init__(self, model_id: str = DEFAULT_MODEL_ID) -> None:
@@ -58,6 +60,7 @@ class TransformersRuntime(Runtime):
             model_loaded=False,
         )
         self._tokenizer = None
+        self._processor = None
         self._model = None
 
     def _load(self) -> None:
@@ -66,39 +69,71 @@ class TransformersRuntime(Runtime):
 
         try:
             import torch
-            from transformers import AutoModelForCausalLM, AutoTokenizer
+            from transformers import AutoModelForMultimodalLM, AutoProcessor
         except ImportError as exc:
             raise RuntimeError(
-                "CANIS_ENABLE_MODEL=1 requires torch and transformers in the runtime"
+                "CANIS_ENABLE_MODEL=1 requires torch and Swiss AI's transformers branch"
             ) from exc
 
-        dtype = torch.bfloat16 if os.getenv("CANIS_TORCH_DTYPE", "bfloat16") == "bfloat16" else torch.float16
-        self._tokenizer = AutoTokenizer.from_pretrained(self.model_id)
-        self._model = AutoModelForCausalLM.from_pretrained(
-            self.model_id,
-            torch_dtype=dtype,
-            device_map=os.getenv("CANIS_DEVICE_MAP", "auto"),
+        started = time.perf_counter()
+        dtype_name = os.getenv("CANIS_TORCH_DTYPE", "bfloat16")
+        dtype = torch.bfloat16 if dtype_name == "bfloat16" else torch.float16
+        print(
+            f"Loading {self.model_id} with dtype={dtype_name} device_map={os.getenv('CANIS_DEVICE_MAP', 'auto')}",
+            flush=True,
         )
+        self._processor = AutoProcessor.from_pretrained(self.model_id)
+        self._model = AutoModelForMultimodalLM.from_pretrained(
+            self.model_id,
+            dtype=dtype,
+            device_map=os.getenv("CANIS_DEVICE_MAP", "auto"),
+        ).eval()
         self.model_loaded = True
+        print(f"Loaded {self.model_id} in {time.perf_counter() - started:.3f}s", flush=True)
 
     def answer(self, prompt: str) -> tuple[str, DispositionReadout]:
         self._load()
-        assert self._tokenizer is not None
+        assert self._processor is not None
         assert self._model is not None
 
         import torch
 
-        inputs = self._tokenizer(prompt, return_tensors="pt")
+        messages = [
+            {
+                "role": "system",
+                "content": os.getenv(
+                    "CANIS_SYSTEM_PROMPT",
+                    "You are Canis, a concise assistant. Answer in no more than two short, complete sentences.",
+                ),
+            },
+            {"role": "user", "content": prompt},
+        ]
+        inputs = self._processor.apply_chat_template(
+            messages,
+            add_generation_prompt=True,
+            tokenize=True,
+            return_dict=True,
+            return_tensors="pt",
+        )
         model_device = next(self._model.parameters()).device
         inputs = {key: value.to(model_device) for key, value in inputs.items()}
 
+        tokenizer = getattr(self._processor, "tokenizer", self._processor)
+
+        generation_started = time.perf_counter()
         with torch.no_grad():
             generated = self._model.generate(
                 **inputs,
-                max_new_tokens=int(os.getenv("CANIS_MAX_NEW_TOKENS", "120")),
+                max_new_tokens=int(os.getenv("CANIS_MAX_NEW_TOKENS", "32")),
                 do_sample=False,
+                pad_token_id=getattr(tokenizer, "eos_token_id", None),
             )
-        answer = self._tokenizer.decode(
+        print(
+            f"Generated {generated.shape[-1] - inputs['input_ids'].shape[-1]} tokens in "
+            f"{time.perf_counter() - generation_started:.3f}s",
+            flush=True,
+        )
+        answer = tokenizer.decode(
             generated[0][inputs["input_ids"].shape[-1] :],
             skip_special_tokens=True,
         ).strip()
@@ -110,4 +145,3 @@ def build_runtime() -> Runtime:
     if os.getenv("CANIS_ENABLE_MODEL") == "1":
         return TransformersRuntime(model_id=model_id)
     return MockRuntime(model_id=model_id)
-

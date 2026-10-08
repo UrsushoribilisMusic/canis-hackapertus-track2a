@@ -38,20 +38,35 @@
     "CONTINUE": "Continue",
     "STEP": "Step {{current}} of {{total}}",
     "INTRO": {
-      "TITLE": "An AI that lives on your phone.",
-      "TEXT": "Canis answers your questions and shows you how sure it is. It works offline, and nothing leaves your device.",
+      "TITLE": "Look under the hood of an AI answer.",
+      "TEXT": "Canis answers your questions and shows the model's disposition while it thinks: when it is confident, unsure, curious, cautious, reluctant, or warm.",
       "OFFLINE": "Works offline",
-      "NO_ACCOUNT": "No account"
+      "READOUT": "Disposition readout",
+      "NO_ACCOUNT": "No account",
+      "MORE_TITLE": "How the readout works",
+      "MORE_TEXT": "Canis reads internal model signals such as next-token uncertainty, hidden-state movement, and Jacobian-style sensitivity. The dog is not pretending to feel. It is a live instrument panel for the model's stance on its own answer."
     },
     "DOG": {
       "TITLE": "Meet Canis.",
-      "TEXT": "While it answers, Canis shows how it stands on what it's saying. Watch the colour and the label, just like you'd read a face. Tap the dog to see its states."
+      "TEXT": "Each state is a signal from the model, not a facial expression. The carousel advances automatically; tap the dog to inspect the next disposition.",
+      "DESCRIPTION": {
+        "confident": "The model is internally settled and its next steps are concentrated.",
+        "unsure": "The model is spread across competing continuations and needs checking.",
+        "curious": "The model is exploring, asking for context, or opening a new line of thought.",
+        "concerned": "The model sees risk, ambiguity, safety constraints, or sensitive stakes.",
+        "reluctant": "The model is resisting the request or approaching a refusal boundary.",
+        "warm": "The model is in a cooperative, supportive, low-friction mode."
+      }
     },
     "MODEL": {
       "TITLE": "Choose a model",
       "TEXT": "This is what Canis thinks with. It downloads once, then works without internet.",
       "WIFI": "Best on Wi-Fi. You can change this later in Settings.",
-      "BACKGROUND": "The download keeps going in the background."
+      "BACKGROUND": "The download keeps going in the background.",
+      "BACKEND_TITLE": "Apertus backend",
+      "BACKEND_TEXT": "This demo uses Swiss AI's Apertus v1.5 8B model through the Docker backend.",
+      "BACKEND_NOTE": "No phone download is needed in this deployment.",
+      "BACKEND_BACKGROUND": "The backend owns model loading and the Canis disposition readout."
     }
   },
   "CHAT": {
@@ -84,6 +99,10 @@
     },
     "DOWNLOADING": "Downloading {{name}}",
     "QUEUED": "I'll answer as soon as the download is done.",
+    "THINKING_PANEL": {
+      "TITLE": "Apertus is generating the answer.",
+      "TEXT": "In this Docker demo the 8B model can take about a minute per short answer. Canis will show the disposition readout when the model returns."
+    },
     "RATE_PROMPT": "Did Canis read this right?",
     "THUMBS_UP": "Canis read this right",
     "THUMBS_DOWN": "Canis read this wrong",
@@ -147,6 +166,7 @@
       "canis-mistralis": "A strong all-rounder from Mistral."
     },
     "ON_PHONE": "{{size}} on this phone",
+    "ON_BACKEND": "served by Docker backend",
     "NOT_DOWNLOADED": "{{size}} · not downloaded",
     "FAILED": "The download stopped. Try again.",
     "DOWNLOAD": "Download",
@@ -184,6 +204,8 @@
     "PRIVACY": "Privacy",
     "PRIVACY_TITLE": "Everything happens on your phone.",
     "PRIVACY_TEXT": "Nothing leaves your device. No account, no cloud.",
+    "BACKEND_PRIVACY_TITLE": "This demo runs through the local Docker backend.",
+    "BACKEND_PRIVACY_TEXT": "Conversation history stays in this browser; prompts are sent only to the local Canis backend.",
     "ABOUT": "About",
     "RESEARCH": "The research behind Canis",
     "LICENCES": "Open-source licences",
@@ -193,6 +215,7 @@
     "HISTORY": "History",
     "SAVED_CONVERSATIONS": "Saved conversations",
     "SAVED_COUNT": "{{count}} on this phone",
+    "SAVED_COUNT_BROWSER": "{{count}} in this browser",
     "DELETE_HISTORY": "Delete all history",
     "DELETE_HISTORY_TITLE": "Delete all history?",
     "DELETE_HISTORY_TEXT": "This removes {{count}} conversations and the dog's readouts for them from this phone. It can't be undone.",

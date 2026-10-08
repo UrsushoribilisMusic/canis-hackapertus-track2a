@@ -164,6 +164,14 @@ Minimum useful prototype:
 3. Add real Apertus generation.
    - Replace mock answer generation with a minimal Transformers generation path.
    - Keep lexical fallback disposition active so the demo remains usable if the forward lens is not ready.
+   - Status on 2026-10-08: implemented with `AutoModelForMultimodalLM` and
+     `AutoProcessor` from Swiss AI's pinned Transformers branch. `make
+     run-model` starts FastAPI with `CANIS_ENABLE_MODEL=1`, mounts the host
+     Hugging Face cache, and serves `swiss-ai/Apertus-v1.5-8B`.
+   - Local smoke test with `CANIS_MAX_NEW_TOKENS=8` returned `Hello, Canis.`
+     and `/api/health` reported `runtime=transformers`, `model_loaded=true`.
+     Longer generations are currently too slow on CPU/disk offload for a smooth
+     demo, so the default cap is conservative.
 4. Port the disposition engine from Swift/MLX to Python/PyTorch.
    - Source files:
      - `canis-ios/Canis/Services/DispositionReadoutEngine.swift`

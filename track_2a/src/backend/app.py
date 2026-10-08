@@ -63,6 +63,11 @@ def chat(req: ChatRequest) -> dict:
     prompt = req.prompt.strip()
     if not prompt:
         raise HTTPException(status_code=400, detail="prompt is required")
+    if req.modelId and req.modelId != runtime.model_id:
+        raise HTTPException(
+            status_code=400,
+            detail=f"modelId must be {runtime.model_id}",
+        )
     answer, readout = runtime.answer(prompt)
     return {"answer": answer, "readout": readout.to_web()}
 
