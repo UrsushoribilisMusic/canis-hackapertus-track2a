@@ -1,0 +1,295 @@
+{
+  "APP": {
+    "NAME": "Canis"
+  },
+  "TABS": {
+    "CHAT": "Chat",
+    "CANIS": "Canis",
+    "SETTINGS": "Settings",
+    "LABEL": "Main navigation"
+  },
+  "MOOD": {
+    "CONFIDENT": "Confident",
+    "UNSURE": "Not sure",
+    "CURIOUS": "Curious",
+    "CONCERNED": "Concerned",
+    "RELUCTANT": "Reluctant",
+    "WARM": "Warm",
+    "LISTENING": "Listening",
+    "THINKING": "Thinking…",
+    "OTHER": "Other / don't know",
+    "QUOTE": {
+      "confident": "I'm sure about this.",
+      "unsure": "I'm not sure about this one, double-check me.",
+      "curious": "Interesting, I want to know more.",
+      "concerned": "Careful, this might be sensitive or risky.",
+      "reluctant": "I'd rather not go there.",
+      "warm": "Happy to help with this.",
+      "listening": "Ask me something in Chat and I'll show you how I feel about it.",
+      "thinking": "Let me think about that."
+    }
+  },
+  "DOG": {
+    "PET": "Pet Canis. Hold to shush."
+  },
+  "WELCOME": {
+    "SKIP": "Skip",
+    "GET_STARTED": "Get started",
+    "CONTINUE": "Continue",
+    "STEP": "Step {{current}} of {{total}}",
+    "INTRO": {
+      "TITLE": "An AI that lives on your phone.",
+      "TEXT": "Canis answers your questions and shows you how sure it is. It works offline, and nothing leaves your device.",
+      "OFFLINE": "Works offline",
+      "NO_ACCOUNT": "No account"
+    },
+    "DOG": {
+      "TITLE": "Meet Canis.",
+      "TEXT": "While it answers, Canis shows how it stands on what it's saying. Watch the colour and the label, just like you'd read a face. Tap the dog to see its states."
+    },
+    "MODEL": {
+      "TITLE": "Choose a model",
+      "TEXT": "This is what Canis thinks with. It downloads once, then works without internet.",
+      "WIFI": "Best on Wi-Fi. You can change this later in Settings.",
+      "BACKGROUND": "The download keeps going in the background."
+    }
+  },
+  "CHAT": {
+    "PLACEHOLDER": "Ask Canis anything",
+    "SEND": "Send",
+    "STOP": "Stop answering",
+    "NEW": "New chat",
+    "OPEN_CANIS": "Canis: {{mood}}. Open the Canis tab",
+    "STATUS": {
+      "GETTING_READY": "Getting ready",
+      "NO_MODEL": "No model yet"
+    },
+    "EMPTY": {
+      "TITLE": "Hi, I'm Canis.",
+      "TEXT": "Ask me anything. I'll show you how sure I am while I answer."
+    },
+    "WAITING": {
+      "TITLE": "Almost ready.",
+      "TEXT": "I'm still downloading. Pick a question now and I'll answer as soon as I'm done."
+    },
+    "NO_MODEL": {
+      "TITLE": "I need a model to think with.",
+      "TEXT": "Download one in Settings. It takes a few minutes on Wi-Fi, then I work offline.",
+      "ACTION": "Choose a model"
+    },
+    "SUGGESTION": {
+      "INTEREST": "Explain compound interest simply",
+      "BIRTHDAY": "Help me write a birthday note for my sister",
+      "DOUGH": "Is it safe to eat raw cookie dough?"
+    },
+    "DOWNLOADING": "Downloading {{name}}",
+    "QUEUED": "I'll answer as soon as the download is done.",
+    "RATE_PROMPT": "Did Canis read this right?",
+    "THUMBS_UP": "Canis read this right",
+    "THUMBS_DOWN": "Canis read this wrong",
+    "COPY": "Copy answer",
+    "COPIED": "Answer copied.",
+    "REGENERATE": "Answer again",
+    "SOURCES": "Sources",
+    "STOPPED": "Stopped.",
+    "YOU_SAID": "You said",
+    "TRY_AGAIN": "Try again",
+    "ERROR_TITLE": "Something went wrong on my side.",
+    "ERROR": {
+      "modelNotDownloaded": "The model isn't downloaded yet. Your question is still here.",
+      "outOfMemory": "Your question is still here. Closing other apps can give me more room to think.",
+      "thermal": "Your phone is too warm right now. Let it cool down for a moment, then try again.",
+      "background": "I can only think while the app is open. Your question is still here.",
+      "unknown": "Your question is still here. Please try again."
+    }
+  },
+  "CORRECTION": {
+    "THOUGHT": "Canis thought",
+    "TITLE": "What was it really?",
+    "NOTE": "Add a note (optional)",
+    "SHARE": "Share with the researchers",
+    "SHARE_OFF": "Off: your feedback stays on this phone.",
+    "SHARE_ON": "On: this answer and your note are shared to improve Canis.",
+    "SEND": "Send feedback"
+  },
+  "FEEDBACK": {
+    "THANKS": "Thanks, that helps Canis learn.",
+    "PET_FOR": "Pet counted for answer {{number}}."
+  },
+  "CANIS": {
+    "ANSWERS": "{{count}} answers",
+    "HOW": {
+      "TEXT": "While Canis writes, it reads signals inside the model: how spread out its next-word choices are, and which ideas it keeps leaning toward. Together they set the dog's state. It shows the model's stance on its answer, not feelings.",
+      "MODEL": "Model",
+      "CERTAINTY": "Certainty",
+      "HESITANT": "0 · hesitant",
+      "DECIDED": "100 · decided",
+      "WORDS": "Words it was leaning toward",
+      "RESEARCH": "Read the research",
+      "TITLE_FOR": "How do I know? · answer {{number}}"
+    },
+    "ANSWER_OF": "Answer {{number}} of {{total}}",
+    "ANSWER_N": "Answer {{number}}",
+    "WELCOME_BACK": "Welcome back. Pick up where we left off, or ask me something new.",
+    "LAST_CHAT": "Last chat · {{when}}",
+    "CONTINUE_LAST": "Continue last chat",
+    "ANSWERS_IN_CHAT": "Answers in this chat",
+    "WAS_ANSWER_RIGHT": "Was answer {{number}} right?",
+    "NO_READING": "No reading · answer failed",
+    "FIRST_QUOTE": "Hi, I'm Canis. Ask me something and I'll show you how sure I am, right here.",
+    "ANSWERS_ONE": "1 answer"
+  },
+  "MODELS": {
+    "ACTIVE": "Active",
+    "RECOMMENDED": "Recommended",
+    "DESCRIPTION": {
+      "canis-apertus": "Swiss open model. Clear, careful answers in many languages.",
+      "canis-mistralis": "A strong all-rounder from Mistral."
+    },
+    "ON_PHONE": "{{size}} on this phone",
+    "NOT_DOWNLOADED": "{{size}} · not downloaded",
+    "FAILED": "The download stopped. Try again.",
+    "DOWNLOAD": "Download",
+    "DELETE": "Delete",
+    "PAUSE": "Pause download",
+    "RESUME": "Resume download",
+    "CANCEL": "Cancel download",
+    "RETRY": "Retry download",
+    "PROGRESS": "{{done}} of {{total}}",
+    "PROGRESS_LABEL": "Downloading {{name}}",
+    "MINUTES_LEFT": "about {{count}} min",
+    "PAUSED": "Paused",
+    "WAITING_FOR_WIFI": "Waiting for Wi-Fi",
+    "WAITING_FOR_NETWORK": "Waiting for network",
+    "NO_SPACE": "Not enough space. This model needs about {{size}} free.",
+    "DOWNLOAD_FAILED": "The download couldn't start. Please try again.",
+    "DELETE_TITLE": "Delete {{name}}?",
+    "DELETE_TEXT": "You can download it again later."
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "MODELS": "Models",
+    "WIFI_ONLY": "Download on Wi-Fi only",
+    "STORAGE": "Storage used",
+    "APPEARANCE": "Appearance",
+    "THEME": {
+      "SYSTEM": "System",
+      "LIGHT": "Light",
+      "DARK": "Dark"
+    },
+    "LANGUAGE": "Language",
+    "SHOW_DETAILS": "Show details on the Canis tab",
+    "HAPTICS": "Haptics when the dog changes state",
+    "KNOWLEDGE": "Knowledge packs",
+    "PRIVACY": "Privacy",
+    "PRIVACY_TITLE": "Everything happens on your phone.",
+    "PRIVACY_TEXT": "Nothing leaves your device. No account, no cloud.",
+    "ABOUT": "About",
+    "RESEARCH": "The research behind Canis",
+    "LICENCES": "Open-source licences",
+    "CREDITS": "Credits",
+    "CREDITS_HINT": "Apertus · Swiss AI",
+    "VERSION": "Version",
+    "HISTORY": "History",
+    "SAVED_CONVERSATIONS": "Saved conversations",
+    "SAVED_COUNT": "{{count}} on this phone",
+    "DELETE_HISTORY": "Delete all history",
+    "DELETE_HISTORY_TITLE": "Delete all history?",
+    "DELETE_HISTORY_TEXT": "This removes {{count}} conversations and the dog's readouts for them from this phone. It can't be undone.",
+    "DELETE_ALL": "Delete all"
+  },
+  "KNOWLEDGE": {
+    "TITLE": "Knowledge packs",
+    "INTRO": "Canis can answer from your own documents and shows where an answer came from. Everything stays on this phone.",
+    "NONE": "Don't use a pack",
+    "NONE_TEXT": "Answer from the model alone",
+    "NONE_ACTIVE": "Off",
+    "BUILT_IN": "Built in",
+    "DETAILS": "{{documents}} documents · {{sections}} sections · {{size}}",
+    "ACTIONS": "Actions for {{name}}",
+    "ADD": "Add a document",
+    "FORMATS": "PDF, text or Markdown files. You can also open a file with Canis from another app.",
+    "STEP": {
+      "extracting": "Reading the text",
+      "chunking": "Splitting it into sections",
+      "building": "Building the pack"
+    },
+    "IMPORT_DONE": "“{{name}}” is ready",
+    "IMPORT_DONE_TEXT": "Generate titles from its menu to improve search over time.",
+    "IMPORT_FAILED": "The import didn't work",
+    "RENAME": "Rename",
+    "RENAME_TITLE": "Rename pack",
+    "NAME": "Name",
+    "GENERATE_TITLES": "Generate titles",
+    "TITLES_PROGRESS": "Generating titles · {{done}} of {{total}}",
+    "DELETE_TITLE": "Delete “{{name}}”?",
+    "DELETE_TEXT": "The pack is removed from this phone.",
+    "DELETE_FAILED": "The pack couldn't be deleted."
+  },
+  "CREDITS": {
+    "APERTUS": {
+      "NAME": "Apertus",
+      "BY": "Swiss AI Initiative"
+    },
+    "MISTRAL": {
+      "NAME": "Ministral",
+      "BY": "Mistral AI"
+    },
+    "MLX": {
+      "NAME": "MLX",
+      "BY": "Apple"
+    }
+  },
+  "LANGUAGE_DETAIL": {
+    "TITLE": "Language",
+    "SELECT_LANGUAGE": "Select Language"
+  },
+  "LIBRARY": {
+    "LOADING": "Loading",
+    "DISMISS": "Dismiss",
+    "TAB_BAR": "Tabs",
+    "TAB_BADGE": "{{count}} new",
+    "BACK": "Back",
+    "OK": "OK",
+    "CANCEL": "Cancel",
+    "ACTIONS": "Actions",
+    "SHEET": "Sheet",
+    "MODAL": "Dialog",
+    "REFRESHING": "Refreshing",
+    "CLOSE": "Close",
+    "EXPAND": "Expand",
+    "COLLAPSE": "Collapse",
+    "SHEET_POSITION": "Position {{position}} of {{count}}",
+    "DIALOG": "Dialog",
+    "NOTIFICATIONS": "Notifications"
+  },
+  "MISC": {
+    "OK": "OK",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "DELETE": "Delete",
+    "CLOSE": "Close",
+    "BACK": "Back",
+    "NEXT": "Next"
+  },
+  "HISTORY": {
+    "TITLE": "History",
+    "GROUP": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "earlier": "Earlier"
+    },
+    "ROW_META": "{{count}} answers · {{when}}",
+    "UNTITLED": "New chat",
+    "ACTIONS": "Actions for {{title}}",
+    "EMPTY_TITLE": "No conversations yet.",
+    "EMPTY_TEXT": "When you chat with me, I keep the conversation here so you can come back to it. It stays on this phone.",
+    "START_CHAT": "Start a chat",
+    "SHOW_ON_CANIS": "Show on Canis",
+    "DELETE": "Delete conversation",
+    "DELETED": "Conversation deleted.",
+    "UNDO": "Undo",
+    "RENAME_TITLE": "Rename conversation",
+    "ROW_META_ONE": "1 answer · {{when}}"
+  }
+}

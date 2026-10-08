@@ -1,0 +1,295 @@
+{
+  "APP": {
+    "NAME": "Canis"
+  },
+  "TABS": {
+    "CHAT": "Chat",
+    "CANIS": "Canis",
+    "SETTINGS": "Einstellungen",
+    "LABEL": "Hauptnavigation"
+  },
+  "MOOD": {
+    "CONFIDENT": "Sicher",
+    "UNSURE": "Unsicher",
+    "CURIOUS": "Neugierig",
+    "CONCERNED": "Besorgt",
+    "RELUCTANT": "Zurückhaltend",
+    "WARM": "Herzlich",
+    "LISTENING": "Hört zu",
+    "THINKING": "Denkt nach…",
+    "OTHER": "Anders / weiss nicht",
+    "QUOTE": {
+      "confident": "Da bin ich mir sicher.",
+      "unsure": "Da bin ich mir nicht sicher, prüf das lieber nach.",
+      "curious": "Spannend, darüber will ich mehr wissen.",
+      "concerned": "Vorsicht, das könnte heikel oder riskant sein.",
+      "reluctant": "Darauf gehe ich lieber nicht ein.",
+      "warm": "Dabei helfe ich gern.",
+      "listening": "Frag mich etwas im Chat, und ich zeige dir, wie ich dazu stehe.",
+      "thinking": "Lass mich kurz nachdenken."
+    }
+  },
+  "DOG": {
+    "PET": "Canis streicheln. Gedrückt halten, um ihn zu bremsen."
+  },
+  "WELCOME": {
+    "SKIP": "Überspringen",
+    "GET_STARTED": "Los geht's",
+    "CONTINUE": "Weiter",
+    "STEP": "Schritt {{current}} von {{total}}",
+    "INTRO": {
+      "TITLE": "Eine KI, die auf deinem Telefon lebt.",
+      "TEXT": "Canis beantwortet deine Fragen und zeigt dir, wie sicher es sich ist. Es funktioniert offline, und nichts verlässt dein Gerät.",
+      "OFFLINE": "Funktioniert offline",
+      "NO_ACCOUNT": "Kein Konto"
+    },
+    "DOG": {
+      "TITLE": "Das ist Canis.",
+      "TEXT": "Während Canis antwortet, zeigt es, wie es zu seiner Antwort steht. Achte auf Farbe und Bezeichnung, so wie du ein Gesicht liest. Tippe auf den Hund, um seine Zustände zu sehen."
+    },
+    "MODEL": {
+      "TITLE": "Modell wählen",
+      "TEXT": "Damit denkt Canis. Es wird einmal geladen und funktioniert danach ohne Internet.",
+      "WIFI": "Am besten im WLAN. Du kannst das später in den Einstellungen ändern.",
+      "BACKGROUND": "Der Download läuft im Hintergrund weiter."
+    }
+  },
+  "CHAT": {
+    "PLACEHOLDER": "Frag Canis etwas",
+    "SEND": "Senden",
+    "STOP": "Antwort stoppen",
+    "NEW": "Neuer Chat",
+    "OPEN_CANIS": "Canis: {{mood}}. Canis-Tab öffnen",
+    "STATUS": {
+      "GETTING_READY": "Wird vorbereitet",
+      "NO_MODEL": "Noch kein Modell"
+    },
+    "EMPTY": {
+      "TITLE": "Hallo, ich bin Canis.",
+      "TEXT": "Frag mich, was du willst. Ich zeige dir beim Antworten, wie sicher ich mir bin."
+    },
+    "WAITING": {
+      "TITLE": "Fast bereit.",
+      "TEXT": "Ich lade noch. Wähle jetzt eine Frage, und ich antworte, sobald ich fertig bin."
+    },
+    "NO_MODEL": {
+      "TITLE": "Ich brauche ein Modell zum Denken.",
+      "TEXT": "Lade eins in den Einstellungen. Das dauert im WLAN ein paar Minuten, danach arbeite ich offline.",
+      "ACTION": "Modell wählen"
+    },
+    "SUGGESTION": {
+      "INTEREST": "Erklär mir Zinseszins ganz einfach",
+      "BIRTHDAY": "Hilf mir bei einer Geburtstagskarte für meine Schwester",
+      "DOUGH": "Kann man rohen Keksteig bedenkenlos essen?"
+    },
+    "DOWNLOADING": "{{name}} wird geladen",
+    "QUEUED": "Ich antworte, sobald der Download fertig ist.",
+    "RATE_PROMPT": "Hat Canis das richtig eingeschätzt?",
+    "THUMBS_UP": "Canis hat richtig eingeschätzt",
+    "THUMBS_DOWN": "Canis hat falsch eingeschätzt",
+    "COPY": "Antwort kopieren",
+    "COPIED": "Antwort kopiert.",
+    "REGENERATE": "Nochmals antworten",
+    "SOURCES": "Quellen",
+    "STOPPED": "Gestoppt.",
+    "YOU_SAID": "Du sagst",
+    "TRY_AGAIN": "Nochmals versuchen",
+    "ERROR_TITLE": "Bei mir ist etwas schiefgelaufen.",
+    "ERROR": {
+      "modelNotDownloaded": "Das Modell ist noch nicht geladen. Deine Frage ist noch da.",
+      "outOfMemory": "Deine Frage ist noch da. Wenn du andere Apps schliesst, habe ich mehr Platz zum Denken.",
+      "thermal": "Dein Telefon ist gerade zu warm. Lass es kurz abkühlen und versuch es dann nochmals.",
+      "background": "Ich kann nur denken, solange die App offen ist. Deine Frage ist noch da.",
+      "unknown": "Deine Frage ist noch da. Bitte versuch es nochmals."
+    }
+  },
+  "CORRECTION": {
+    "THOUGHT": "Canis dachte",
+    "TITLE": "Wie war es wirklich?",
+    "NOTE": "Notiz hinzufügen (optional)",
+    "SHARE": "Mit den Forschenden teilen",
+    "SHARE_OFF": "Aus: Dein Feedback bleibt auf diesem Telefon.",
+    "SHARE_ON": "Ein: Diese Antwort und deine Notiz werden geteilt, um Canis zu verbessern.",
+    "SEND": "Feedback senden"
+  },
+  "FEEDBACK": {
+    "THANKS": "Danke, das hilft Canis beim Lernen.",
+    "PET_FOR": "Streicheln zählt für Antwort {{number}}."
+  },
+  "CANIS": {
+    "ANSWERS": "{{count}} Antworten",
+    "HOW": {
+      "TEXT": "Während Canis schreibt, liest es Signale im Modell: wie breit seine Auswahl für das nächste Wort gestreut ist und zu welchen Ideen es immer wieder neigt. Zusammen bestimmen sie den Zustand des Hundes. Er zeigt die Haltung des Modells zu seiner Antwort, keine Gefühle.",
+      "MODEL": "Modell",
+      "CERTAINTY": "Sicherheit",
+      "HESITANT": "0 · zögerlich",
+      "DECIDED": "100 · entschieden",
+      "WORDS": "Wörter, zu denen es neigte",
+      "RESEARCH": "Zur Forschung",
+      "TITLE_FOR": "Woher weiss ich das? · Antwort {{number}}"
+    },
+    "ANSWER_OF": "Antwort {{number}} von {{total}}",
+    "ANSWER_N": "Antwort {{number}}",
+    "WELCOME_BACK": "Willkommen zurück. Mach dort weiter, wo wir aufgehört haben, oder frag mich etwas Neues.",
+    "LAST_CHAT": "Letzter Chat · {{when}}",
+    "CONTINUE_LAST": "Letzten Chat fortsetzen",
+    "ANSWERS_IN_CHAT": "Antworten in diesem Chat",
+    "WAS_ANSWER_RIGHT": "Stimmte Antwort {{number}}?",
+    "NO_READING": "Keine Einschätzung · Antwort fehlgeschlagen",
+    "FIRST_QUOTE": "Hallo, ich bin Canis. Frag mich etwas, und ich zeige dir hier, wie sicher ich mir bin.",
+    "ANSWERS_ONE": "1 Antwort"
+  },
+  "MODELS": {
+    "ACTIVE": "Aktiv",
+    "RECOMMENDED": "Empfohlen",
+    "DESCRIPTION": {
+      "canis-apertus": "Offenes Schweizer Modell. Klare, sorgfältige Antworten in vielen Sprachen.",
+      "canis-mistralis": "Ein starker Allrounder von Mistral."
+    },
+    "ON_PHONE": "{{size}} auf diesem Telefon",
+    "NOT_DOWNLOADED": "{{size}} · nicht geladen",
+    "FAILED": "Der Download wurde unterbrochen. Versuch es nochmals.",
+    "DOWNLOAD": "Laden",
+    "DELETE": "Löschen",
+    "PAUSE": "Download pausieren",
+    "RESUME": "Download fortsetzen",
+    "CANCEL": "Download abbrechen",
+    "RETRY": "Download wiederholen",
+    "PROGRESS": "{{done}} von {{total}}",
+    "PROGRESS_LABEL": "{{name}} wird geladen",
+    "MINUTES_LEFT": "noch etwa {{count}} Min.",
+    "PAUSED": "Pausiert",
+    "WAITING_FOR_WIFI": "Wartet auf WLAN",
+    "WAITING_FOR_NETWORK": "Wartet auf Netzwerk",
+    "NO_SPACE": "Nicht genug Speicher. Dieses Modell braucht etwa {{size}} freien Platz.",
+    "DOWNLOAD_FAILED": "Der Download konnte nicht starten. Bitte versuch es nochmals.",
+    "DELETE_TITLE": "{{name}} löschen?",
+    "DELETE_TEXT": "Du kannst es später wieder laden."
+  },
+  "SETTINGS": {
+    "TITLE": "Einstellungen",
+    "MODELS": "Modelle",
+    "WIFI_ONLY": "Nur im WLAN laden",
+    "STORAGE": "Belegter Speicher",
+    "APPEARANCE": "Darstellung",
+    "THEME": {
+      "SYSTEM": "System",
+      "LIGHT": "Hell",
+      "DARK": "Dunkel"
+    },
+    "LANGUAGE": "Sprache",
+    "SHOW_DETAILS": "Details im Canis-Tab anzeigen",
+    "HAPTICS": "Vibration, wenn der Hund den Zustand wechselt",
+    "KNOWLEDGE": "Wissenspakete",
+    "PRIVACY": "Datenschutz",
+    "PRIVACY_TITLE": "Alles passiert auf deinem Telefon.",
+    "PRIVACY_TEXT": "Nichts verlässt dein Gerät. Kein Konto, keine Cloud.",
+    "ABOUT": "Über",
+    "RESEARCH": "Die Forschung hinter Canis",
+    "LICENCES": "Open-Source-Lizenzen",
+    "CREDITS": "Mitwirkende",
+    "CREDITS_HINT": "Apertus · Swiss AI",
+    "VERSION": "Version",
+    "HISTORY": "Verlauf",
+    "SAVED_CONVERSATIONS": "Gespeicherte Gespräche",
+    "SAVED_COUNT": "{{count}} auf diesem Telefon",
+    "DELETE_HISTORY": "Ganzen Verlauf löschen",
+    "DELETE_HISTORY_TITLE": "Ganzen Verlauf löschen?",
+    "DELETE_HISTORY_TEXT": "Damit werden {{count}} Gespräche und die Einschätzungen des Hundes dazu von diesem Telefon entfernt. Das lässt sich nicht rückgängig machen.",
+    "DELETE_ALL": "Alles löschen"
+  },
+  "KNOWLEDGE": {
+    "TITLE": "Wissenspakete",
+    "INTRO": "Canis kann aus deinen eigenen Dokumenten antworten und zeigt, woher eine Antwort stammt. Alles bleibt auf diesem Telefon.",
+    "NONE": "Kein Paket verwenden",
+    "NONE_TEXT": "Nur mit dem Modell antworten",
+    "NONE_ACTIVE": "Aus",
+    "BUILT_IN": "Vorinstalliert",
+    "DETAILS": "{{documents}} Dokumente · {{sections}} Abschnitte · {{size}}",
+    "ACTIONS": "Aktionen für {{name}}",
+    "ADD": "Dokument hinzufügen",
+    "FORMATS": "PDF-, Text- oder Markdown-Dateien. Du kannst eine Datei auch aus einer anderen App mit Canis öffnen.",
+    "STEP": {
+      "extracting": "Text wird gelesen",
+      "chunking": "In Abschnitte aufteilen",
+      "building": "Paket wird erstellt"
+    },
+    "IMPORT_DONE": "«{{name}}» ist bereit",
+    "IMPORT_DONE_TEXT": "Erstelle über das Menü Titel, um die Suche mit der Zeit zu verbessern.",
+    "IMPORT_FAILED": "Der Import hat nicht geklappt",
+    "RENAME": "Umbenennen",
+    "RENAME_TITLE": "Paket umbenennen",
+    "NAME": "Name",
+    "GENERATE_TITLES": "Titel erstellen",
+    "TITLES_PROGRESS": "Titel werden erstellt · {{done}} von {{total}}",
+    "DELETE_TITLE": "«{{name}}» löschen?",
+    "DELETE_TEXT": "Das Paket wird von diesem Telefon entfernt.",
+    "DELETE_FAILED": "Das Paket konnte nicht gelöscht werden."
+  },
+  "CREDITS": {
+    "APERTUS": {
+      "NAME": "Apertus",
+      "BY": "Swiss AI Initiative"
+    },
+    "MISTRAL": {
+      "NAME": "Ministral",
+      "BY": "Mistral AI"
+    },
+    "MLX": {
+      "NAME": "MLX",
+      "BY": "Apple"
+    }
+  },
+  "LANGUAGE_DETAIL": {
+    "TITLE": "Sprache",
+    "SELECT_LANGUAGE": "Sprache wählen"
+  },
+  "LIBRARY": {
+    "LOADING": "Wird geladen",
+    "DISMISS": "Schliessen",
+    "TAB_BAR": "Tabs",
+    "TAB_BADGE": "{{count}} neu",
+    "BACK": "Zurück",
+    "OK": "OK",
+    "CANCEL": "Abbrechen",
+    "ACTIONS": "Aktionen",
+    "SHEET": "Blatt",
+    "MODAL": "Dialog",
+    "REFRESHING": "Wird aktualisiert",
+    "CLOSE": "Schliessen",
+    "EXPAND": "Aufklappen",
+    "COLLAPSE": "Zuklappen",
+    "SHEET_POSITION": "Position {{position}} von {{count}}",
+    "DIALOG": "Dialog",
+    "NOTIFICATIONS": "Mitteilungen"
+  },
+  "MISC": {
+    "OK": "OK",
+    "CANCEL": "Abbrechen",
+    "SAVE": "Sichern",
+    "DELETE": "Löschen",
+    "CLOSE": "Schliessen",
+    "BACK": "Zurück",
+    "NEXT": "Weiter"
+  },
+  "HISTORY": {
+    "TITLE": "Verlauf",
+    "GROUP": {
+      "today": "Heute",
+      "yesterday": "Gestern",
+      "earlier": "Früher"
+    },
+    "ROW_META": "{{count}} Antworten · {{when}}",
+    "UNTITLED": "Neuer Chat",
+    "ACTIONS": "Aktionen für {{title}}",
+    "EMPTY_TITLE": "Noch keine Gespräche.",
+    "EMPTY_TEXT": "Wenn du mit mir chattest, bewahre ich das Gespräch hier auf, damit du zurückkommen kannst. Es bleibt auf diesem Telefon.",
+    "START_CHAT": "Chat starten",
+    "SHOW_ON_CANIS": "Im Canis-Tab zeigen",
+    "DELETE": "Gespräch löschen",
+    "DELETED": "Gespräch gelöscht.",
+    "UNDO": "Rückgängig",
+    "RENAME_TITLE": "Gespräch umbenennen",
+    "ROW_META_ONE": "1 Antwort · {{when}}"
+  }
+}

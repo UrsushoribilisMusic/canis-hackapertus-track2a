@@ -67,8 +67,8 @@ def chat(req: ChatRequest) -> dict:
     return {"answer": answer, "readout": readout.to_web()}
 
 
-if WEB.exists():
-    app.mount("/assets", StaticFiles(directory=WEB), name="assets")
+if (WEB / "assets").exists():
+    app.mount("/assets", StaticFiles(directory=WEB / "assets"), name="assets")
 
 
 @app.get("/")
@@ -76,3 +76,10 @@ if WEB.exists():
 def index() -> FileResponse:
     return FileResponse(WEB / "index.html")
 
+
+@app.get("/{path:path}")
+def static_or_spa(path: str) -> FileResponse:
+    candidate = (WEB / path).resolve()
+    if candidate.is_file() and WEB.resolve() in candidate.parents:
+        return FileResponse(candidate)
+    return FileResponse(WEB / "index.html")

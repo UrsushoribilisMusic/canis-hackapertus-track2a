@@ -44,10 +44,16 @@ Current Canis status:
   tensors using the host Hugging Face cache mounted into Docker.
 - `swiss-ai/Apertus-v1.5-8B` is gated on Hugging Face. Export `HF_TOKEN`
   with an authorized token before probing or running the real model path.
+- Apertus 1.5 is not supported by the released Transformers package yet; the
+  model probe installs Swiss AI's pinned Transformers branch with text/vision
+  support. Audio extras are intentionally omitted from the probe image.
 - Set `CANIS_ENABLE_MODEL=1` only after the image/runtime includes
   `torch`, `transformers`, and the `swiss-ai/Apertus-v1.5-8B` cache.
 - The submission target remains Apertus 8B with hidden-state/J-space scoring;
   the fallback keeps the UI and API contract stable while that path is wired.
+- `src/web/` contains the built Canis Angular browser app. The macOS host build
+  currently crashes in native Angular cache dependencies, so this build was
+  produced in a Linux `node:22.22.3-bookworm` container.
 
 ## Data
 The `data/` directory must not exceed 100 MB.

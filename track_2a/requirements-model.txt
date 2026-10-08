@@ -1,5 +1,4 @@
 -r requirements.txt
 accelerate==1.11.0
-transformers==4.57.1
 torch==2.8.0
-
+transformers[torch,vision] @ git+https://github.com/swiss-ai/transformers.git@3797303dda74844e3d1f8977ff5518bb91f818b4

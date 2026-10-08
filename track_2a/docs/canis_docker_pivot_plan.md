@@ -154,6 +154,9 @@ Minimum useful prototype:
 2. Confirm model availability and loading.
    - Current local cache status on 2026-10-08: `swiss-ai/Apertus-v1.1-4B-Instruct` is cached, but `swiss-ai/Apertus-v1.5-8B` is not.
    - Probe status on 2026-10-08: `swiss-ai/Apertus-v1.5-8B` returned a Hugging Face gated-repo `403`; the Docker command now passes `HF_TOKEN` through for an authorized account.
+   - After accepting the Hugging Face terms, access to `config.json` succeeded. The next blocker was runtime support: released Transformers does not recognize `model_type: apertus1p5`. The model card requires Swiss AI's pinned Transformers branch `3797303dda74844e3d1f8977ff5518bb91f818b4` and `AutoModelForMultimodalLM`.
+   - The first Swiss-branch build with `transformers[torch,vision,audio]` failed while building optional `kenlm` for audio dependencies. The probe image now omits audio extras because the Canis disposition path is text-only.
+   - Successful 8B probe on 2026-10-08: `swiss-ai/Apertus-v1.5-8B` downloaded and loaded in Docker on CPU/offload. Load time was 513.084s and one short forward pass took 10.673s. It exposed logits `[1, 39, 266752]`, 33 hidden-state tensors, final hidden shape `[1, 39, 4096]`, and output embeddings `[131072, 4096]` via `Apertus1p5ForConditionalGeneration`.
    - Control probe status on 2026-10-08: `swiss-ai/Apertus-v1.1-4B-Instruct` loaded successfully in Docker from the mounted local cache. It exposed logits `[1, 13, 131072]`, 25 hidden-state tensors, final hidden shape `[1, 13, 3072]`, and output embeddings `[131072, 3072]` via `ApertusForCausalLM`.
    - Download/load `swiss-ai/Apertus-v1.5-8B` in the same runtime path the Docker submission will use.
    - Record memory, cold-start time, first-token latency, and whether the architecture exposes logits, hidden states, final norm, and `lm_head`.
@@ -168,6 +171,7 @@ Minimum useful prototype:
      - `canis-ios/CanisTests/DispositionReadoutTests.swift`
    - Preserve the public web contract from `bitforge-canis/src/app/types/canis-plugin.interface.ts`.
 5. Build the Angular UI once and confirm it can run in browser mode.
+   - The macOS host Angular builder currently aborts in native `@lmdb`/`msgpackr` cache modules. Building the same source inside `node:22.22.3-bookworm` succeeds.
 6. Add HTTP-backed `CanisPlugin`.
 7. Wire Docker backend to the UI using the existing event contract.
 8. Fill `technical_report.md` with architecture, model usage, limitations and reproducibility.

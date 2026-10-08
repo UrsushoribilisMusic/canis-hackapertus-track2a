@@ -1,0 +1,1 @@
+import{n as R}from"./chunk-BADi0s6X.js";var o=R(`App`,{web:()=>import(`./chunk-CP9Ngfrk.js`).then(e=>new e.AppWeb)});export{o as t};

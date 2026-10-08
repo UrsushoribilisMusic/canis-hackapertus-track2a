@@ -1,0 +1,1 @@
+function a(r,n,e){let t=r.instant(n,e);return typeof t==`string`?t:n}export{a as t};

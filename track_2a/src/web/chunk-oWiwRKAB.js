@@ -1,0 +1,1 @@
+function o(n,m){let r=(i,t)=>new Intl.NumberFormat(m,{minimumFractionDigits:t,maximumFractionDigits:t}).format(i);return n>=1e9/10?`${r(n/1e9,1)} GB`:`${r(n/1e6,0)} MB`}function u(n){return Math.max(1,Math.round(n/60))}export{u as n,o as t};
