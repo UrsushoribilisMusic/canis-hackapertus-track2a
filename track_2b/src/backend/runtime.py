@@ -6,6 +6,7 @@ import os
 import time
 from dataclasses import dataclass
 
+from backend.canis_disposition.hidden_directions import hidden_direction_readout
 from backend.canis_disposition.lexical import lexical_readout
 from backend.canis_disposition.types import DispositionReadout
 
@@ -214,7 +215,40 @@ class TransformersRuntime(Runtime):
             generated[0][inputs["input_ids"].shape[-1] :],
             skip_special_tokens=True,
         ).strip()
-        return answer, lexical_readout(answer or prompt), sources or sources_for(prompt)
+        readout = self._readout_from_hidden_states(generated, inputs)
+        if readout is None:
+            readout = lexical_readout(answer or prompt)
+        return answer, readout, sources or sources_for(prompt)
+
+    def _readout_from_hidden_states(self, generated, original_inputs) -> DispositionReadout | None:
+        try:
+            import torch
+
+            assert self._model is not None
+            forward_inputs = {
+                key: value
+                for key, value in original_inputs.items()
+                if key not in {"input_ids", "attention_mask"}
+            }
+            forward_inputs["input_ids"] = generated
+            forward_inputs["attention_mask"] = torch.ones_like(generated)
+
+            with torch.no_grad():
+                output = self._model(
+                    **forward_inputs,
+                    output_hidden_states=True,
+                    return_dict=True,
+                )
+            hidden_states = getattr(output, "hidden_states", None)
+            logits = getattr(output, "logits", None)
+            if not hidden_states or logits is None:
+                return None
+            hidden = hidden_states[-1][0, -1, :].detach().float().cpu().tolist()
+            last_logits = logits[0, -1, :].detach().float().cpu().tolist()
+            return hidden_direction_readout(hidden, last_logits)
+        except Exception as exc:  # pragma: no cover - depends on model internals.
+            print(f"Canis hidden-state readout unavailable, using lexical fallback: {exc}", flush=True)
+            return None
 
 
 def prompt_with_sources(prompt: str, sources: list[dict] | None = None) -> str:

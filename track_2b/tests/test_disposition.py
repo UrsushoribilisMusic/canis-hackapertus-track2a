@@ -1,6 +1,10 @@
 import unittest
 
 from backend.canis_disposition.lexical import lexical_readout
+from backend.canis_disposition.hidden_directions import (
+    hidden_direction_readout,
+    load_hidden_directions,
+)
 from backend.canis_disposition.resolver import resolve
 from backend.canis_disposition.types import Disposition
 from backend.knowledge import KnowledgeStore
@@ -69,6 +73,18 @@ class DispositionTests(unittest.TestCase):
 
         self.assertIn("scores", readout.to_web())
         self.assertGreater(readout.to_web()["scores"]["unsure"], 0)
+
+    def test_hidden_direction_artifact_scores_forward_lens_readout(self):
+        directions = load_hidden_directions()
+        hidden = directions[Disposition.CURIOUS]
+        readout = hidden_direction_readout(hidden, [0.1, 0.2, 0.3, 0.4])
+
+        self.assertIsNotNone(readout)
+        assert readout is not None
+        web = readout.to_web()
+        self.assertEqual(web["source"], "forwardLens")
+        self.assertIn("curious", web["scores"])
+        self.assertGreater(web["scores"]["curious"], 0.9)
 
     def test_mock_runtime_answers_question_without_scaffolding_text(self):
         answer, readout, _sources = MockRuntime().answer("Why does it rain?")

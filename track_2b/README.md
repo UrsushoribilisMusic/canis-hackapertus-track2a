@@ -96,9 +96,14 @@ Current Canis status:
 - Set `CANIS_MAX_NEW_TOKENS` to tune latency. The default real-model path uses
   `32` and prompts the model to answer in two short complete sentences because
   local CPU/offload generation is slow.
-- The submission target remains Apertus 8B with hidden-state/J-space scoring;
-  the current real-model path generates answers with Apertus and still uses the
-  lexical fallback for the disposition readout while J-space scoring is wired.
+- The submission target remains Apertus 8B with hidden-state/J-space scoring.
+  The real-model path generates answers with Apertus, then attempts a
+  hidden-state forward-lens disposition readout using the compact Canis
+  directions artifact. If the active Transformers model does not expose the
+  required hidden states/logits, Canis falls back to the lexical readout.
+- The browser UI includes the same source upload flow as the iOS app. Uploaded
+  PDF, Markdown, and text files are chunked locally inside the Docker backend
+  and retrieved as cited snippets for grounded answers.
 - `src/web/` contains the built Canis Angular browser app. The macOS host build
   has previously failed in native Angular cache dependencies, so this bundle was
   produced in a Linux `node:22.22.3-bookworm` container.

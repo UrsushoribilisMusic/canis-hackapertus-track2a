@@ -74,9 +74,11 @@ low unless a long wait is acceptable.
 
 ## Current Readout Status
 
-The backend now generates answers with Apertus 8B in real-model mode. The Canis
-disposition readout still uses the lexical fallback while the hidden-state /
-Jacobian-space readout is being wired.
+The backend generates answers with Apertus 8B in real-model mode. After
+generation, Canis attempts a hidden-state forward-lens readout using the compact
+directions artifact bundled in `src/backend/canis_disposition/artifacts/`. If
+the active Transformers model does not expose hidden states/logits, the backend
+logs the issue and falls back to the lexical readout.
 
 ## Useful Commands
 

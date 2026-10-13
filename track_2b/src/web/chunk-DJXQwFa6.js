@@ -1,0 +1,1 @@
+var i=`https://canis.flotilla.cc/reading-disposition.pdf`;export{i as t};

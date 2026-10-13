@@ -61,7 +61,10 @@ class DispositionReadout:
         return {
             "disposition": self.disposition.web_value,
             "certainty": round(self.certainty, 3),
-            "scores": {key: round(min(1.0, value), 3) for key, value in web_scores.items()},
+            "scores": {
+                key: round(max(0.0, min(1.0, value)), 3)
+                for key, value in web_scores.items()
+            },
             "tokens": [token.to_web() for token in self.tokens[:6]],
             "source": self.source,
         }

@@ -166,13 +166,13 @@
   "CANIS": {
     "ANSWERS": "{{count}} answers",
     "HOW": {
-      "TEXT": "While Canis writes, it reads signals inside the model: how spread out its next-word choices are, and which ideas it keeps leaning toward. Together they set the dog's state. It shows the model's stance on its answer, not feelings.",
+      "TEXT": "Canis reads the model as it answers. It combines next-token uncertainty with a hidden-state disposition probe: the current state is compared with learned directions for confident, unsure, curious, concerned, reluctant, and warm. The largest direction becomes the visible readout, while the remaining percentages show ambiguity rather than hiding it.",
       "MODEL": "Model",
       "CERTAINTY": "Certainty",
       "HESITANT": "0 · hesitant",
       "DECIDED": "100 · decided",
       "WORDS": "Words it was leaning toward",
-      "RESEARCH": "Read the research",
+      "RESEARCH": "Read the disposition paper",
       "TITLE_FOR": "How do I know? · answer {{number}}",
       "DISTRIBUTION": "Disposition mix"
     },
@@ -196,27 +196,27 @@
       "transparency": {
         "TAB": "Transparency",
         "TITLE": "AI needs inspectable answers, not only polished answers.",
-        "TEXT": "Society is being asked to trust model outputs in education, health, administration, and science. Canis explores a practical transparency layer: instead of exposing private chain-of-thought text, it reads internal model dynamics and estimates a disposition signal. A Jacobian-style probe is useful because it measures sensitivity inside the model without asking the model to narrate hidden reasoning."
+        "TEXT": "Canis is built around a simple social problem: people are being asked to trust model outputs before they can inspect how stable those outputs are. Instead of asking the model to reveal chain-of-thought text, we read forward-only signals from its residual stream. The result is not a second answer, but a compact disposition layer: is the model converging confidently, hesitating, exploring, refusing, or raising concern?"
       },
       "ios": {
         "TAB": "iOS / MLX",
         "TITLE": "The product path is the iOS app, not a slow Docker box.",
-        "TEXT": "Our first on-device build ran a 4B model in an iOS app with MLX. The hard engineering work was memory pressure, thermal behavior, model lifecycle, and keeping the UI responsive while inference runs locally. That path is the actual Canis product experience: private, fast enough for a phone, and suitable for everyday users."
+        "TEXT": "The research target was smartphone-class open models: small enough to run locally, private enough for personal documents, and constrained enough that every token matters. Our iOS path uses MLX and a compact readout artifact instead of a hosted inference API. The hard parts are memory pressure, thermal behavior, model lifecycle, and keeping the dog, sources, and chat responsive while inference runs on-device."
       },
       "jacobian": {
         "TAB": "Jacobian",
-        "TITLE": "The disposition is a distribution, not a mascot mood.",
-        "TEXT": "Canis compares the model's current hidden-state direction with disposition vectors such as confident, unsure, curious, concerned, reluctant, and warm. The Jacobian-style calculation asks how small internal changes would move the next step toward those vectors. We show the winning disposition and the remaining percentages because ambiguity is itself useful evidence."
+        "TITLE": "The disposition is a map, not a mascot mood.",
+        "TEXT": "The paper projects a hidden state through a Jacobian/logit-lens style space and scores it against calibrated directions for confident, unsure, curious, concerned, reluctant, and warm. Discriminant directions reached 89-95% macro recall in five-fold cross-validation across three small open models, but Canis does not pretend that one headline number is enough. We show the distribution because the caveats are the product: concern can be entangled with uncertainty, and curiosity/uncertainty often sit close together."
       },
       "sources": {
         "TAB": "Sources",
         "TITLE": "Small local models are strong when the task is grounded.",
-        "TEXT": "The sources feature lets a user upload documents, chunk them locally, retrieve the relevant sections, and ask the model against those snippets. This RAG pattern is a good fit for local AI: the model does not need to memorize private material, and Canis can cite the sections it used instead of swallowing an entire file."
+        "TEXT": "The sources feature is a pragmatic use case for local AI. Users upload PDFs, Markdown, or text files; Canis chunks them, retrieves the most relevant sections, and asks the model against those snippets. That keeps private material local, avoids stuffing whole files into the prompt, and gives the answer something judges and users can inspect: cited chunks, not vibes."
       },
       "swiss": {
         "TAB": "Swiss public",
         "TITLE": "The goal is broader AI understanding, not only another assistant.",
-        "TEXT": "Canis is designed as a public-facing explanation tool for Swiss AI literacy. By showing uncertainty, alternatives, source grounding, and disposition mix, it helps non-specialists see that model answers are generated processes with tradeoffs, not magic statements of truth."
+        "TEXT": "The paper's key lesson is deployment discipline: report a per-axis map, not just a score. One tempting axis, mischief, looked good in-distribution and still failed every control. Canis turns that lesson into product language for the Swiss public: local models can be useful, but responsible interfaces should show uncertainty, source grounding, and the limits of what the probe can really claim."
       }
     }
   },
@@ -290,6 +290,8 @@
     "NONE": "Don't use sources",
     "NONE_TEXT": "Answer from the model alone",
     "NONE_ACTIVE": "Off",
+    "COMPACT_LABEL": "Sources:",
+    "NO_SOURCES": "No sources",
     "BUILT_IN": "Built in",
     "DETAILS": "{{documents}} documents · {{sections}} sections · {{size}}",
     "ACTIONS": "Actions for {{name}}",

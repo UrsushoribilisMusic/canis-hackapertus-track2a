@@ -166,13 +166,13 @@
   "CANIS": {
     "ANSWERS": "{{count}} Antworten",
     "HOW": {
-      "TEXT": "Während Canis schreibt, liest es Signale im Modell: wie breit seine Auswahl für das nächste Wort gestreut ist und zu welchen Ideen es immer wieder neigt. Zusammen bestimmen sie den Zustand des Hundes. Er zeigt die Haltung des Modells zu seiner Antwort, keine Gefühle.",
+      "TEXT": "Canis liest das Modell während der Antwort. Es kombiniert Unsicherheit beim nächsten Token mit einem Hidden-State-Probe: Der aktuelle Zustand wird mit gelernten Richtungen für sicher, unsicher, neugierig, besorgt, zurückhaltend und warm verglichen. Die stärkste Richtung wird sichtbar, die übrigen Prozente zeigen Mehrdeutigkeit statt sie zu verstecken.",
       "MODEL": "Modell",
       "CERTAINTY": "Sicherheit",
       "HESITANT": "0 · zögerlich",
       "DECIDED": "100 · entschieden",
       "WORDS": "Wörter, zu denen es neigte",
-      "RESEARCH": "Zur Forschung",
+      "RESEARCH": "Zum Dispositions-Paper",
       "TITLE_FOR": "Woher weiss ich das? · Antwort {{number}}",
       "DISTRIBUTION": "Dispositionsmix"
     },
@@ -196,27 +196,27 @@
       "transparency": {
         "TAB": "Transparenz",
         "TITLE": "KI braucht prüfbare Antworten, nicht nur glatte Antworten.",
-        "TEXT": "Gesellschaftlich sollen wir Modellantworten in Bildung, Gesundheit, Verwaltung und Wissenschaft vertrauen. Canis erprobt eine praktische Transparenzschicht: Statt private Chain-of-Thought-Texte offenzulegen, liest es interne Modelldynamiken und schätzt eine Disposition. Ein jacobian-artiger Probe ist nützlich, weil er Sensitivität im Modell misst, ohne das Modell versteckte Begründungen erzählen zu lassen."
+        "TEXT": "Canis beginnt bei einem einfachen gesellschaftlichen Problem: Menschen sollen Modellantworten vertrauen, bevor sie prüfen können, wie stabil diese Antworten sind. Statt das Modell nach Chain-of-Thought-Text zu fragen, lesen wir forward-only Signale aus dem Residual Stream. Daraus entsteht keine zweite Antwort, sondern eine kompakte Dispositionsschicht: konvergiert das Modell sicher, zögert es, exploriert es, verweigert es oder meldet es Sorge?"
       },
       "ios": {
         "TAB": "iOS / MLX",
         "TITLE": "Der Produktpfad ist die iOS-App, nicht eine langsame Docker-Box.",
-        "TEXT": "Unser erster On-Device-Build lief mit einem 4B-Modell in einer iOS-App mit MLX. Die schwierige Arbeit lag bei Speicherbedarf, Wärmeentwicklung, Modell-Lifecycle und einer reaktionsfähigen UI während lokaler Inferenz. Das ist die eigentliche Canis-Produktextfahrung: privat, schnell genug für ein Telefon und geeignet für Alltagsnutzer."
+        "TEXT": "Das Forschungsziel waren Smartphone-taugliche offene Modelle: klein genug für lokale Ausführung, privat genug für persönliche Dokumente und so begrenzt, dass jedes Token zählt. Unser iOS-Pfad nutzt MLX und ein kompaktes Readout-Artefakt statt einer gehosteten Inference-API. Schwierig sind Speicher, Wärme, Modell-Lifecycle und eine reaktionsfähige Oberfläche für Hund, Quellen und Chat."
       },
       "jacobian": {
         "TAB": "Jacobian",
-        "TITLE": "Die Disposition ist eine Verteilung, keine Maskottchen-Laune.",
-        "TEXT": "Canis vergleicht die aktuelle Hidden-State-Richtung des Modells mit Dispositionsvektoren wie sicher, unsicher, neugierig, besorgt, zurückhaltend und warm. Die jacobian-artige Berechnung fragt, wie kleine interne Änderungen den nächsten Schritt zu diesen Vektoren verschieben würden. Wir zeigen die stärkste Disposition und die übrigen Prozente, weil Mehrdeutigkeit selbst ein hilfreiches Signal ist."
+        "TITLE": "Die Disposition ist eine Karte, keine Maskottchen-Laune.",
+        "TEXT": "Das Paper projiziert einen Hidden State durch einen Jacobian-/Logit-Lens-artigen Raum und bewertet ihn gegen kalibrierte Richtungen für sicher, unsicher, neugierig, besorgt, zurückhaltend und warm. Die Diskriminanzrichtungen erreichten 89-95% Macro Recall in fünffacher Cross-Validation über drei kleine offene Modelle. Trotzdem zeigt Canis bewusst die ganze Verteilung: Sorge kann mit Unsicherheit verflochten sein, und Neugier/Unsicherheit liegen oft nah beieinander."
       },
       "sources": {
         "TAB": "Quellen",
         "TITLE": "Kleine lokale Modelle sind stark, wenn die Aufgabe geerdet ist.",
-        "TEXT": "Mit Quellen kann ein Nutzer Dokumente hochladen, lokal in Abschnitte teilen, relevante Stellen abrufen und das Modell gegen diese Ausschnitte fragen. Dieses RAG-Muster passt gut zu lokaler KI: Das Modell muss privates Material nicht auswendig kennen, und Canis kann die verwendeten Abschnitte zitieren, statt eine ganze Datei in den Prompt zu schieben."
+        "TEXT": "Quellen sind ein pragmatischer Einsatzfall für lokale KI. Nutzer laden PDFs, Markdown oder Textdateien hoch; Canis teilt sie in Abschnitte, ruft relevante Stellen ab und fragt das Modell gegen diese Ausschnitte. So bleibt privates Material lokal, ganze Dateien werden nicht in den Prompt gestopft, und die Antwort hat zitierbare Chunks statt nur Bauchgefühl."
       },
       "swiss": {
         "TAB": "Schweiz",
         "TITLE": "Das Ziel ist breiteres KI-Verständnis, nicht nur ein weiterer Assistent.",
-        "TEXT": "Canis ist als öffentlich verständliches Erklärwerkzeug für Schweizer KI-Kompetenz gedacht. Indem es Unsicherheit, Alternativen, Quellenbezug und Dispositionsmix zeigt, hilft es Nicht-Spezialisten zu sehen, dass Modellantworten erzeugte Prozesse mit Abwägungen sind, keine magischen Wahrheitsaussagen."
+        "TEXT": "Die wichtigste Lehre des Papers ist Disziplin beim Deployment: eine Karte pro Achse berichten, nicht nur einen Score. Eine verführerische Achse, Mischief, sah in-distribution gut aus und scheiterte trotzdem an allen Controls. Canis übersetzt diese Lehre in Produktsprache für die Schweizer Öffentlichkeit: lokale Modelle können nützlich sein, aber verantwortliche Interfaces sollten Unsicherheit, Quellenbezug und Grenzen des Probes zeigen."
       }
     }
   },
@@ -290,6 +290,8 @@
     "NONE": "Keine Quellen verwenden",
     "NONE_TEXT": "Nur mit dem Modell antworten",
     "NONE_ACTIVE": "Aus",
+    "COMPACT_LABEL": "Quellen:",
+    "NO_SOURCES": "Keine",
     "BUILT_IN": "Vorinstalliert",
     "DETAILS": "{{documents}} Dokumente · {{sections}} Abschnitte · {{size}}",
     "ACTIONS": "Aktionen für {{name}}",
