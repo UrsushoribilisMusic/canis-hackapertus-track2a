@@ -55,6 +55,11 @@ HF_CACHE=/path/to/huggingface-cache make run-model
 If the mounted cache does not contain Apertus yet, Transformers will download
 the full gated model into that cache before the first answer.
 
+When the real model is running, the browser UI shows a live waiting panel with
+elapsed seconds, pipeline steps, and a moving scan bar. On good hardware a
+question may take about a minute; on CPU or offload-heavy Docker runs, our tests
+have taken several minutes for one question.
+
 Override the token cap when needed:
 
 ```bash

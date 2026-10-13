@@ -195,6 +195,17 @@
       "CACHE_TEXT": "Hugging Face access tokens usually start with hf_. Replace the x's with your authorized token. If the model is already downloaded somewhere else, point HF_CACHE at that cache before running the command.",
       "RESTART_TEXT": "Yes, this means pressing Ctrl-C in the current make run terminal and starting it again with make run-model. If the cache does not contain Apertus yet, Transformers will download the full gated model into the mounted cache before the first answer."
     },
+    "WAITING": {
+      "KICKER": "Apertus is working",
+      "TITLE": "Thinking{{dots}}",
+      "ELAPSED": "{{seconds}}s",
+      "STEP_LABEL": "Step {{number}}",
+      "STEP_PROMPT": "Prepare prompt and sources",
+      "STEP_MODEL": "Generate with Apertus",
+      "STEP_DISPOSITION": "Read hidden-state disposition",
+      "STEP_FINAL": "Stream the final answer",
+      "NOTE": "On good hardware this may take about a minute. On CPU or offload-heavy Docker runs, our tests have taken several minutes for one question, so the moving bar means the request is still alive."
+    },
     "INTERMEZZO": {
       "KICKER": "While Docker thinks",
       "DOCKER_NOTE": "This Docker demo is deliberately reproducible for judges, but CPU/offload generation is much slower than the real Canis iOS app running local MLX inference.",

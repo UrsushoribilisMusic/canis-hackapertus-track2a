@@ -195,6 +195,17 @@
       "CACHE_TEXT": "Hugging-Face-Tokens beginnen normalerweise mit hf_. Ersetze die x durch dein berechtigtes Token. Wenn das Modell bereits anderswo geladen ist, setze HF_CACHE auf diesen Cache, bevor du den Befehl ausführst.",
       "RESTART_TEXT": "Ja, das bedeutet Ctrl-C im aktuellen make-run-Terminal und danach Neustart mit make run-model. Wenn der Cache Apertus noch nicht enthält, lädt Transformers das vollständige gated Modell vor der ersten Antwort in den gemounteten Cache."
     },
+    "WAITING": {
+      "KICKER": "Apertus arbeitet",
+      "TITLE": "Denke nach{{dots}}",
+      "ELAPSED": "{{seconds}}s",
+      "STEP_LABEL": "Schritt {{number}}",
+      "STEP_PROMPT": "Prompt und Quellen vorbereiten",
+      "STEP_MODEL": "Mit Apertus generieren",
+      "STEP_DISPOSITION": "Hidden-State-Disposition lesen",
+      "STEP_FINAL": "Finale Antwort streamen",
+      "NOTE": "Auf guter Hardware kann das etwa eine Minute dauern. In CPU- oder Offload-lastigen Docker-Runs dauerten einzelne Fragen in unseren Tests mehrere Minuten. Der bewegte Balken zeigt, dass die Anfrage noch lebt."
+    },
     "INTERMEZZO": {
       "KICKER": "Während Docker denkt",
       "DOCKER_NOTE": "Diese Docker-Demo ist bewusst reproduzierbar für die Jury, aber CPU-/Offload-Generierung ist viel langsamer als die echte Canis-iOS-App mit lokaler MLX-Inferenz.",

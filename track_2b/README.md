@@ -98,6 +98,10 @@ Current Canis status:
   `HF_CACHE=/path/to/huggingface-cache make run-model`. If the mounted cache
   does not contain `swiss-ai/Apertus-v1.5-8B`, Transformers will download the
   full gated model into that cache before the first answer.
+- Real-model answers are intentionally visible in the UI while they run. On
+  good hardware a question may take about a minute; on CPU or offload-heavy
+  Docker runs, our tests have taken several minutes for one question. The
+  moving progress bar means the request is still alive.
 - Apertus 1.5 is not supported by the released Transformers package yet; the
   model probe installs Swiss AI's pinned Transformers branch with text/vision
   support. Audio extras are intentionally omitted from the probe image.
