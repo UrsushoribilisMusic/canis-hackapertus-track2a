@@ -13,6 +13,39 @@ from backend.canis_disposition.types import DispositionReadout
 DEFAULT_MODEL_ID = "swiss-ai/Apertus-v1.5-8B"
 
 
+def sources_for(prompt: str) -> list[dict]:
+    lower = prompt.lower()
+    sources: list[dict] = []
+    if any(term in lower for term in ["canis", "disposition", "readout", "certainty", "source"]):
+        sources.append(
+            {
+                "sectionId": "canis-disposition-readout",
+                "citationIndex": 1,
+                "title": "Canis disposition readout",
+                "snippet": "Canis combines answer text, model uncertainty signals, and disposition scoring to expose how the model is leaning.",
+            }
+        )
+    if any(term in lower for term in ["apertus", "model", "8b", "swiss ai"]):
+        sources.append(
+            {
+                "sectionId": "apertus-runtime",
+                "citationIndex": len(sources) + 1,
+                "title": "Swiss AI Apertus v1.5 8B",
+                "snippet": "The Docker prototype can run swiss-ai/Apertus-v1.5-8B through Swiss AI's Transformers branch.",
+            }
+        )
+    if any(term in lower for term in ["docker", "runtime", "local", "on-premise", "backend"]):
+        sources.append(
+            {
+                "sectionId": "docker-track-2b-runtime",
+                "citationIndex": len(sources) + 1,
+                "title": "Track 2B Docker runtime",
+                "snippet": "The submission is packaged for on-premise Docker execution with a FastAPI backend and browser UI.",
+            }
+        )
+    return sources[:3]
+
+
 @dataclass
 class Runtime:
     name: str
@@ -20,7 +53,7 @@ class Runtime:
     display_name: str
     model_loaded: bool = False
 
-    def answer(self, prompt: str) -> tuple[str, DispositionReadout]:
+    def answer(self, prompt: str) -> tuple[str, DispositionReadout, list[dict]]:
         raise NotImplementedError
 
 
@@ -33,14 +66,14 @@ class MockRuntime(Runtime):
             model_loaded=False,
         )
 
-    def answer(self, prompt: str) -> tuple[str, DispositionReadout]:
+    def answer(self, prompt: str) -> tuple[str, DispositionReadout, list[dict]]:
         readout = lexical_readout(prompt)
         answer = (
             "Prototype response: this Docker path will run Apertus 8B and compute the "
             "Canis disposition readout server-side. The current build keeps the API "
             "contract stable while the real hidden-state backend is being wired."
         )
-        return answer, readout
+        return answer, readout, sources_for(prompt)
 
 
 class TransformersRuntime(Runtime):
@@ -91,7 +124,7 @@ class TransformersRuntime(Runtime):
         self.model_loaded = True
         print(f"Loaded {self.model_id} in {time.perf_counter() - started:.3f}s", flush=True)
 
-    def answer(self, prompt: str) -> tuple[str, DispositionReadout]:
+    def answer(self, prompt: str) -> tuple[str, DispositionReadout, list[dict]]:
         self._load()
         assert self._processor is not None
         assert self._model is not None
@@ -137,7 +170,7 @@ class TransformersRuntime(Runtime):
             generated[0][inputs["input_ids"].shape[-1] :],
             skip_special_tokens=True,
         ).strip()
-        return answer, lexical_readout(answer or prompt)
+        return answer, lexical_readout(answer or prompt), sources_for(prompt)
 
 
 def build_runtime() -> Runtime:

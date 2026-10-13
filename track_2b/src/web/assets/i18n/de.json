@@ -3,10 +3,11 @@
     "NAME": "Canis"
   },
   "TABS": {
-    "CHAT": "Chat",
+    "CHAT": "Verlauf",
     "CANIS": "Canis",
     "SETTINGS": "Einstellungen",
-    "LABEL": "Hauptnavigation"
+    "LABEL": "Hauptnavigation",
+    "KNOWLEDGE": "Quellen"
   },
   "MOOD": {
     "CONFIDENT": "Sicher",
@@ -25,7 +26,7 @@
       "concerned": "Vorsicht, das könnte heikel oder riskant sein.",
       "reluctant": "Darauf gehe ich lieber nicht ein.",
       "warm": "Dabei helfe ich gern.",
-      "listening": "Frag mich etwas im Chat, und ich zeige dir, wie ich dazu stehe.",
+      "listening": "Frag mich unten etwas, und ich zeige dir, wie ich es einschätze.",
       "thinking": "Lass mich kurz nachdenken."
     }
   },
@@ -67,6 +68,17 @@
       "BACKEND_TEXT": "Diese Demo nutzt Swiss AIs Apertus v1.5 8B Modell über das Docker-Backend.",
       "BACKEND_NOTE": "In dieser Deployment-Variante ist kein Download auf das Telefon nötig.",
       "BACKEND_BACKGROUND": "Das Backend übernimmt das Laden des Modells und den Canis-Disposition-Readout."
+    },
+    "SOURCES": {
+      "TITLE": "Quellen",
+      "HEADLINE": "Füge Dokumente hinzu, während das Modell lädt.",
+      "TEXT": "Mit Quellen kann Canis aus deinen PDFs, Notizen und Markdown-Dateien antworten. Es teilt sie lokal in Abschnitte, sucht die relevanten Stellen und zitiert, was es verwendet hat.",
+      "ADD_TITLE": "Frag zu deinem eigenen Material",
+      "ADD_TEXT": "Nutze Quellen für Papers, Handbücher, Meeting-Notizen oder alles, worauf Canis seine Antwort stützen soll.",
+      "PRIVATE_TITLE": "Bleibt auf diesem Telefon",
+      "PRIVATE_TEXT": "Der Textindex bleibt lokal. Du kannst Quellen vor jeder Frage ein- oder ausschalten.",
+      "ADD_ACTION": "Quellen hinzufügen",
+      "CONTINUE": "Weiter zu Canis"
     }
   },
   "CHAT": {
@@ -145,7 +157,8 @@
       "DECIDED": "100 · entschieden",
       "WORDS": "Wörter, zu denen es neigte",
       "RESEARCH": "Zur Forschung",
-      "TITLE_FOR": "Woher weiss ich das? · Antwort {{number}}"
+      "TITLE_FOR": "Woher weiss ich das? · Antwort {{number}}",
+      "DISTRIBUTION": "Dispositionsmix"
     },
     "ANSWER_OF": "Antwort {{number}} von {{total}}",
     "ANSWER_N": "Antwort {{number}}",
@@ -156,7 +169,9 @@
     "WAS_ANSWER_RIGHT": "Stimmte Antwort {{number}}?",
     "NO_READING": "Keine Einschätzung · Antwort fehlgeschlagen",
     "FIRST_QUOTE": "Hallo, ich bin Canis. Frag mich etwas, und ich zeige dir hier, wie sicher ich mir bin.",
-    "ANSWERS_ONE": "1 Antwort"
+    "ANSWERS_ONE": "1 Antwort",
+    "CERTAINTY_BADGE": "{{percent}}% sicher",
+    "PACKS_ONBOARDING": "Während das Modell lädt, kannst du Quellen aus deinen Dokumenten hinzufügen. Canis kann dann daraus antworten und die verwendeten Abschnitte zitieren."
   },
   "MODELS": {
     "ACTIVE": "Aktiv",
@@ -200,7 +215,8 @@
     "LANGUAGE": "Sprache",
     "SHOW_DETAILS": "Details im Canis-Tab anzeigen",
     "HAPTICS": "Vibration, wenn der Hund den Zustand wechselt",
-    "KNOWLEDGE": "Wissenspakete",
+    "KNOWLEDGE": "Quellen",
+    "VIEW_INSTRUCTIONS": "Anleitung anzeigen",
     "PRIVACY": "Datenschutz",
     "PRIVACY_TITLE": "Alles passiert auf deinem Telefon.",
     "PRIVACY_TEXT": "Nichts verlässt dein Gerät. Kein Konto, keine Cloud.",
@@ -222,9 +238,9 @@
     "DELETE_ALL": "Alles löschen"
   },
   "KNOWLEDGE": {
-    "TITLE": "Wissenspakete",
+    "TITLE": "Quellen",
     "INTRO": "Canis kann aus deinen eigenen Dokumenten antworten und zeigt, woher eine Antwort stammt. Alles bleibt auf diesem Telefon.",
-    "NONE": "Kein Paket verwenden",
+    "NONE": "Keine Quellen verwenden",
     "NONE_TEXT": "Nur mit dem Modell antworten",
     "NONE_ACTIVE": "Aus",
     "BUILT_IN": "Vorinstalliert",
@@ -235,19 +251,21 @@
     "STEP": {
       "extracting": "Text wird gelesen",
       "chunking": "In Abschnitte aufteilen",
-      "building": "Paket wird erstellt"
+      "building": "Quelle wird indexiert"
     },
     "IMPORT_DONE": "«{{name}}» ist bereit",
     "IMPORT_DONE_TEXT": "Erstelle über das Menü Titel, um die Suche mit der Zeit zu verbessern.",
     "IMPORT_FAILED": "Der Import hat nicht geklappt",
     "RENAME": "Umbenennen",
-    "RENAME_TITLE": "Paket umbenennen",
+    "RENAME_TITLE": "Quelle umbenennen",
     "NAME": "Name",
     "GENERATE_TITLES": "Titel erstellen",
     "TITLES_PROGRESS": "Titel werden erstellt · {{done}} von {{total}}",
     "DELETE_TITLE": "«{{name}}» löschen?",
-    "DELETE_TEXT": "Das Paket wird von diesem Telefon entfernt.",
-    "DELETE_FAILED": "Das Paket konnte nicht gelöscht werden."
+    "DELETE_TEXT": "Die Quelle wird von diesem Telefon entfernt.",
+    "DELETE_FAILED": "Die Quelle konnte nicht gelöscht werden.",
+    "MANAGE": "Verwalten",
+    "ACTIVE_DETAILS": "{{documents}} Dokumente · {{sections}} Abschnitte"
   },
   "CREDITS": {
     "APERTUS": {

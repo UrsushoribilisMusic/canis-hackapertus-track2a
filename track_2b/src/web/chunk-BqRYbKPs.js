@@ -1,1 +1,0 @@
-import{t as E}from"./chunk-BADi0s6X.js";var n=class extends E{async open(){return new Promise((r,e)=>{e(new Error(`Not implemented for web.`))})}async openAndroid(){return new Promise((r,e)=>{e(new Error(`Not implemented for web.`))})}async openIOS(){return new Promise((r,e)=>{e(new Error(`Not implemented for web.`))})}};export{n as NativeSettingsWeb};

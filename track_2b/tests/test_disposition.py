@@ -62,6 +62,12 @@ class DispositionTests(unittest.TestCase):
         self.assertEqual(lexical_readout("This is unsafe.").to_web()["disposition"], "concerned")
         self.assertEqual(lexical_readout("Plain answer.").to_web()["disposition"], "neutral")
 
+    def test_web_contract_includes_scores(self):
+        readout = lexical_readout("I'm not sure, maybe it depends.")
+
+        self.assertIn("scores", readout.to_web())
+        self.assertGreater(readout.to_web()["scores"]["unsure"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

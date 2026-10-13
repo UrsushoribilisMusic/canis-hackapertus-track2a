@@ -68,8 +68,8 @@ def chat(req: ChatRequest) -> dict:
             status_code=400,
             detail=f"modelId must be {runtime.model_id}",
         )
-    answer, readout = runtime.answer(prompt)
-    return {"answer": answer, "readout": readout.to_web()}
+    answer, readout, sources = runtime.answer(prompt)
+    return {"answer": answer, "readout": readout.to_web(), "sources": sources}
 
 
 if (WEB / "assets").exists():

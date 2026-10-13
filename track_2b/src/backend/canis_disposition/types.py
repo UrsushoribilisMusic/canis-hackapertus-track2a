@@ -52,9 +52,16 @@ class DispositionReadout:
         return max(0.0, min(1.0, 1.0 - self.entropy))
 
     def to_web(self) -> dict:
+        web_scores: dict[str, float] = {}
+        for disposition, score in self.seed_scores.items():
+            if disposition is Disposition.IDLE:
+                continue
+            web_value = disposition.web_value
+            web_scores[web_value] = web_scores.get(web_value, 0.0) + float(score)
         return {
             "disposition": self.disposition.web_value,
             "certainty": round(self.certainty, 3),
+            "scores": {key: round(min(1.0, value), 3) for key, value in web_scores.items()},
             "tokens": [token.to_web() for token in self.tokens[:6]],
             "source": self.source,
         }

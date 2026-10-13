@@ -3,10 +3,11 @@
     "NAME": "Canis"
   },
   "TABS": {
-    "CHAT": "Chat",
+    "CHAT": "History",
     "CANIS": "Canis",
     "SETTINGS": "Settings",
-    "LABEL": "Main navigation"
+    "LABEL": "Main navigation",
+    "KNOWLEDGE": "Sources"
   },
   "MOOD": {
     "CONFIDENT": "Confident",
@@ -25,7 +26,7 @@
       "concerned": "Careful, this might be sensitive or risky.",
       "reluctant": "I'd rather not go there.",
       "warm": "Happy to help with this.",
-      "listening": "Ask me something in Chat and I'll show you how I feel about it.",
+      "listening": "Ask me anything below and I will show you how I read it.",
       "thinking": "Let me think about that."
     }
   },
@@ -67,6 +68,17 @@
       "BACKEND_TEXT": "This demo uses Swiss AI's Apertus v1.5 8B model through the Docker backend.",
       "BACKEND_NOTE": "No phone download is needed in this deployment.",
       "BACKEND_BACKGROUND": "The backend owns model loading and the Canis disposition readout."
+    },
+    "SOURCES": {
+      "TITLE": "Sources",
+      "HEADLINE": "Add documents while the model downloads.",
+      "TEXT": "Sources let Canis answer from your PDFs, notes, and Markdown files. It chunks them locally, searches the relevant sections, and cites what it used.",
+      "ADD_TITLE": "Ask against your own material",
+      "ADD_TEXT": "Use sources for papers, manuals, meeting notes, or anything you want Canis to ground an answer in.",
+      "PRIVATE_TITLE": "Kept on this phone",
+      "PRIVATE_TEXT": "The text index stays local. You can switch sources on or off before asking.",
+      "ADD_ACTION": "Add sources",
+      "CONTINUE": "Continue to Canis"
     }
   },
   "CHAT": {
@@ -145,7 +157,8 @@
       "DECIDED": "100 · decided",
       "WORDS": "Words it was leaning toward",
       "RESEARCH": "Read the research",
-      "TITLE_FOR": "How do I know? · answer {{number}}"
+      "TITLE_FOR": "How do I know? · answer {{number}}",
+      "DISTRIBUTION": "Disposition mix"
     },
     "ANSWER_OF": "Answer {{number}} of {{total}}",
     "ANSWER_N": "Answer {{number}}",
@@ -156,7 +169,9 @@
     "WAS_ANSWER_RIGHT": "Was answer {{number}} right?",
     "NO_READING": "No reading · answer failed",
     "FIRST_QUOTE": "Hi, I'm Canis. Ask me something and I'll show you how sure I am, right here.",
-    "ANSWERS_ONE": "1 answer"
+    "ANSWERS_ONE": "1 answer",
+    "CERTAINTY_BADGE": "{{percent}}% certain",
+    "PACKS_ONBOARDING": "While the model downloads, add sources from your documents. Canis can then answer from those sources and cite the sections it used."
   },
   "MODELS": {
     "ACTIVE": "Active",
@@ -200,7 +215,8 @@
     "LANGUAGE": "Language",
     "SHOW_DETAILS": "Show details on the Canis tab",
     "HAPTICS": "Haptics when the dog changes state",
-    "KNOWLEDGE": "Knowledge packs",
+    "KNOWLEDGE": "Sources",
+    "VIEW_INSTRUCTIONS": "View instructions",
     "PRIVACY": "Privacy",
     "PRIVACY_TITLE": "Everything happens on your phone.",
     "PRIVACY_TEXT": "Nothing leaves your device. No account, no cloud.",
@@ -222,9 +238,9 @@
     "DELETE_ALL": "Delete all"
   },
   "KNOWLEDGE": {
-    "TITLE": "Knowledge packs",
-    "INTRO": "Canis can answer from your own documents and shows where an answer came from. Everything stays on this phone.",
-    "NONE": "Don't use a pack",
+    "TITLE": "Sources",
+    "INTRO": "Canis can answer from your own documents and show where each answer came from. Everything stays on this phone.",
+    "NONE": "Don't use sources",
     "NONE_TEXT": "Answer from the model alone",
     "NONE_ACTIVE": "Off",
     "BUILT_IN": "Built in",
@@ -235,19 +251,21 @@
     "STEP": {
       "extracting": "Reading the text",
       "chunking": "Splitting it into sections",
-      "building": "Building the pack"
+      "building": "Indexing the source"
     },
     "IMPORT_DONE": "“{{name}}” is ready",
     "IMPORT_DONE_TEXT": "Generate titles from its menu to improve search over time.",
     "IMPORT_FAILED": "The import didn't work",
     "RENAME": "Rename",
-    "RENAME_TITLE": "Rename pack",
+    "RENAME_TITLE": "Rename source",
     "NAME": "Name",
     "GENERATE_TITLES": "Generate titles",
     "TITLES_PROGRESS": "Generating titles · {{done}} of {{total}}",
     "DELETE_TITLE": "Delete “{{name}}”?",
-    "DELETE_TEXT": "The pack is removed from this phone.",
-    "DELETE_FAILED": "The pack couldn't be deleted."
+    "DELETE_TEXT": "The source is removed from this phone.",
+    "DELETE_FAILED": "The source couldn't be deleted.",
+    "MANAGE": "Manage",
+    "ACTIVE_DETAILS": "{{documents}} documents · {{sections}} sections"
   },
   "CREDITS": {
     "APERTUS": {
