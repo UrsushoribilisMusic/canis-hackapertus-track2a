@@ -2,11 +2,16 @@
 
 PORT ?= 8080
 CONTAINER_NAME ?= canis-track2b
-OPEN ?= 0
+OPEN ?= 1
 URL := http://127.0.0.1:$(PORT)/
 
 define announce_and_maybe_open
 	@echo "Canis will be available at $(URL)"
+	@if [ "$(OPEN)" = "1" ]; then \
+		echo "Opening the browser once the Docker server is ready..."; \
+	else \
+		echo "Browser auto-open is disabled. Use OPEN=1 make run to enable it."; \
+	fi
 endef
 
 define run_and_maybe_open
