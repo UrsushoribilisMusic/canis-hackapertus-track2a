@@ -64,6 +64,19 @@ Open:
 http://127.0.0.1:8080/
 ```
 
+On a local desktop, you can ask `make run` to open the browser once the Docker
+server is ready:
+
+```bash
+OPEN=1 make run
+```
+
+If port `8080` is already in use, choose another host port:
+
+```bash
+PORT=8081 OPEN=1 make run
+```
+
 Current Canis status:
 
 - `make run` starts a Dockerized FastAPI backend and browser demo.
