@@ -3,6 +3,8 @@ import unittest
 from backend.canis_disposition.lexical import lexical_readout
 from backend.canis_disposition.resolver import resolve
 from backend.canis_disposition.types import Disposition
+from backend.knowledge import KnowledgeStore
+from backend.runtime import MockRuntime
 
 
 class DispositionTests(unittest.TestCase):
@@ -67,6 +69,47 @@ class DispositionTests(unittest.TestCase):
 
         self.assertIn("scores", readout.to_web())
         self.assertGreater(readout.to_web()["scores"]["unsure"], 0)
+
+    def test_mock_runtime_answers_question_without_scaffolding_text(self):
+        answer, readout, _sources = MockRuntime().answer("Why does it rain?")
+
+        self.assertIn("moist air", answer)
+        self.assertNotIn("Prototype response", answer)
+        self.assertNotIn("being wired", answer)
+        self.assertEqual(readout.to_web()["disposition"], "neutral")
+
+    def test_knowledge_store_chunks_and_searches_sources(self):
+        store = KnowledgeStore()
+        text = (
+            ("Rain forms when moist air rises and condenses into droplets. " * 30)
+            + "\n\n"
+            + ("Apertus is the model family used by Canis for the HackApertus demo. " * 30)
+            + "\n\n"
+            + ("Sources are chunked so the model receives only relevant excerpts. " * 30)
+        )
+
+        pack = store.add("notes.md", text.encode())
+        sources = store.search("Why does rain form?")
+
+        self.assertGreaterEqual(len(pack.sections), 2)
+        self.assertLessEqual(max(len(section.text) for section in pack.sections), 900)
+        self.assertTrue(sources[0]["title"].startswith("Rain forms when moist air"))
+        self.assertIn("moist air", sources[0]["snippet"])
+
+    def test_mock_runtime_grounds_answer_in_source_chunks(self):
+        sources = [
+            {
+                "sectionId": "notes-1",
+                "citationIndex": 1,
+                "title": "Rain note",
+                "snippet": "Rain forms when moist air rises and condenses.",
+            }
+        ]
+
+        answer, _readout, returned_sources = MockRuntime().answer("Why rain?", sources)
+
+        self.assertIn("From Rain note", answer)
+        self.assertEqual(returned_sources, sources)
 
 
 if __name__ == "__main__":

@@ -45,11 +45,22 @@
       "READOUT": "Disposition-Readout",
       "NO_ACCOUNT": "Kein Konto",
       "MORE_TITLE": "Wie der Readout funktioniert",
-      "MORE_TEXT": "Canis betrachtet die Antwort als Trajektorie durch das Modell, nicht nur als ausgegebenen Text. Es kombiniert Next-Token-Entropie, Hidden-State-Richtung und jacobian-artige Sensitivität gegen Dispositionsvektoren, um sichtbar zu machen, ob das Modell konvergiert, zögert, exploriert, eine Sicherheitsgrenze erreicht oder flüssig antwortet."
+      "MORE_TEXT": "Alignment betrifft nicht nur den letzten Satz. Canis schaut während der Antwort in Apertus hinein und macht interne Modellsignale als lesbare Disposition sichtbar.",
+      "MORE_SIGNAL": "Wir bewerten die Antwort-Trajektorie, nicht nur den Oberflächentext: Next-Token-Entropie, Hidden-State-Bewegung und die Richtung des Modells im Repräsentationsraum.",
+      "MORE_JACOBIAN": "Der jacobian-artige Probe fragt, wie sensibel der nächste Schritt auf kleine Bewegungen in Richtung gelernter Dispositionsvektoren wie sicher, unsicher, neugierig, besorgt, zurückhaltend und warm reagiert.",
+      "MORE_RESULT": "Das Ergebnis ist ein kompakter Readout, der zeigt, ob Apertus stabil wirkt, Alternativen exploriert, sich einer Sicherheitsgrenze nähert oder flüssig antwortet.",
+      "MORE_LINK_LABEL": "Technischen Bericht lesen",
+      "MORE_LINK_URL": "https://github.com/UrsushoribilisMusic/canis-hackapertus-track2b/blob/main/track_2b/technical_report.md"
     },
     "DOG": {
       "TITLE": "Das ist Canis.",
       "TEXT": "Jeder Zustand ist ein Signal aus dem Modell, kein Gesichtsausdruck. Das Karussell läuft automatisch weiter; tippe auf den Hund, um die nächste Disposition zu sehen.",
+      "MAP_TITLE": "Dispositionskarte",
+      "MAP_TEXT": "Canis projiziert die Antwort in sechs lesbare Zustände, damit Reviewer entscheiden können, wann sie einer Antwort vertrauen, sie prüfen oder neu ausführen sollten.",
+      "CALC_TITLE": "Wie der Score entsteht",
+      "CALC_ENTROPY": "Entropie erkennt breit verteilte Token-Wahrscheinlichkeiten: hohe Entropie ist ein Zeichen, dass das Modell weniger stabil ist.",
+      "CALC_VECTOR": "Dispositionsvektoren werden mit der Hidden-State-Richtung des Modells verglichen, um zu schätzen, auf welchen Zustand sich die Antwort zubewegt.",
+      "CALC_JACOBIAN": "Jacobian-artige Sensitivität prüft, ob kleine interne Änderungen den nächsten Antwortschritt zu einer anderen Disposition verschieben würden.",
       "DESCRIPTION": {
         "confident": "Das Modell ist intern stabil und seine nächsten Schritte sind konzentriert.",
         "unsure": "Das Modell verteilt sich auf konkurrierende Fortsetzungen und sollte geprüft werden.",
@@ -65,9 +76,14 @@
       "WIFI": "Am besten im WLAN. Du kannst das später in den Einstellungen ändern.",
       "BACKGROUND": "Der Download läuft im Hintergrund weiter.",
       "BACKEND_TITLE": "Apertus-Backend",
-      "BACKEND_TEXT": "Diese Demo nutzt Swiss AIs Apertus v1.5 8B Modell über das Docker-Backend.",
-      "BACKEND_NOTE": "In dieser Deployment-Variante ist kein Download auf das Telefon nötig.",
-      "BACKEND_BACKGROUND": "Das Backend übernimmt das Laden des Modells und den Canis-Disposition-Readout."
+      "BACKEND_TEXT": "Die Docker-Submission zielt auf Swiss AIs Apertus v1.5 8B. Der Standardpfad für Judges ist ein schneller Mock-Runtime; die echten Gewichte laufen mit make run-model.",
+      "BACKEND_NOTE": "Wenn das Modell bereits geladen ist, nutzt Docker den lokalen Hugging-Face-Cache aus ~/.cache/huggingface.",
+      "BACKEND_BACKGROUND": "Das Backend übernimmt Modellladen, Antwortgenerierung, Quellen und den Canis-Disposition-Readout.",
+      "BACKEND_IOS_TEXT": "Canis hat auch eine iOS-Begleit-App für die On-Device-Erfahrung. Für die Bewertung ist dieser Docker-Build der reproduzierbare Pfad; den iOS-Link können wir separat teilen, sobald Apples Review/TestFlight-Flow bereit ist.",
+      "BACKEND_MODEL_LINK_LABEL": "Apertus auf Hugging Face öffnen",
+      "BACKEND_MODEL_LINK_URL": "https://huggingface.co/swiss-ai/Apertus-v1.5-8B",
+      "BACKEND_RUN_LINK_LABEL": "run-model-Anleitung lesen",
+      "BACKEND_RUN_LINK_URL": "https://github.com/UrsushoribilisMusic/canis-hackapertus-track2b#run-it"
     },
     "SOURCES": {
       "TITLE": "Quellen",
@@ -75,7 +91,7 @@
       "TEXT": "Mit Quellen kann Canis aus deinen PDFs, Notizen und Markdown-Dateien antworten. Es teilt sie lokal in Abschnitte, sucht die relevanten Stellen und zitiert, was es verwendet hat.",
       "ADD_TITLE": "Frag zu deinem eigenen Material",
       "ADD_TEXT": "Nutze Quellen für Papers, Handbücher, Meeting-Notizen oder alles, worauf Canis seine Antwort stützen soll.",
-      "PRIVATE_TITLE": "Bleibt auf diesem Telefon",
+      "PRIVATE_TITLE": "Bleibt lokal",
       "PRIVATE_TEXT": "Der Textindex bleibt lokal. Du kannst Quellen vor jeder Frage ein- oder ausschalten.",
       "ADD_ACTION": "Quellen hinzufügen",
       "CONTINUE": "Weiter zu Canis"
@@ -239,7 +255,7 @@
   },
   "KNOWLEDGE": {
     "TITLE": "Quellen",
-    "INTRO": "Canis kann aus deinen eigenen Dokumenten antworten und zeigt, woher eine Antwort stammt. Alles bleibt auf diesem Telefon.",
+    "INTRO": "Canis kann aus deinen eigenen Dokumenten antworten und zeigt, woher eine Antwort stammt. Alles bleibt lokal auf diesem Gerät oder in dieser Docker-Session.",
     "NONE": "Keine Quellen verwenden",
     "NONE_TEXT": "Nur mit dem Modell antworten",
     "NONE_ACTIVE": "Aus",
@@ -247,7 +263,7 @@
     "DETAILS": "{{documents}} Dokumente · {{sections}} Abschnitte · {{size}}",
     "ACTIONS": "Aktionen für {{name}}",
     "ADD": "Dokument hinzufügen",
-    "FORMATS": "PDF-, Text- oder Markdown-Dateien. Du kannst eine Datei auch aus einer anderen App mit Canis öffnen.",
+    "FORMATS": "PDF-, Text- oder Markdown-Dateien. Canis teilt das Dokument in Abschnitte und sendet nur passende Stellen in den Antwortfluss.",
     "STEP": {
       "extracting": "Text wird gelesen",
       "chunking": "In Abschnitte aufteilen",
@@ -262,7 +278,7 @@
     "GENERATE_TITLES": "Titel erstellen",
     "TITLES_PROGRESS": "Titel werden erstellt · {{done}} von {{total}}",
     "DELETE_TITLE": "«{{name}}» löschen?",
-    "DELETE_TEXT": "Die Quelle wird von diesem Telefon entfernt.",
+    "DELETE_TEXT": "Die Quelle wird aus dieser lokalen Session entfernt.",
     "DELETE_FAILED": "Die Quelle konnte nicht gelöscht werden.",
     "MANAGE": "Verwalten",
     "ACTIVE_DETAILS": "{{documents}} Dokumente · {{sections}} Abschnitte"

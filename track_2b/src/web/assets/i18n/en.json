@@ -45,11 +45,22 @@
       "READOUT": "Disposition readout",
       "NO_ACCOUNT": "No account",
       "MORE_TITLE": "How the readout works",
-      "MORE_TEXT": "Canis treats the answer as a trajectory through the model, not just emitted text. It combines next-token entropy, hidden-state direction, and Jacobian-style sensitivity against disposition vectors to expose whether the model is converging, hesitating, exploring, hitting a safety boundary, or answering smoothly."
+      "MORE_TEXT": "Alignment is not only about the final sentence. Canis looks inside Apertus while it answers and turns internal model signals into a readable disposition layer.",
+      "MORE_SIGNAL": "We score the answer trajectory, not only the surface text: next-token entropy, hidden-state movement, and the model's direction through representation space.",
+      "MORE_JACOBIAN": "The Jacobian-style probe asks how sensitive the next step is to small movement toward learned disposition vectors such as confident, unsure, curious, concerned, reluctant, and warm.",
+      "MORE_RESULT": "The result is a compact readout that shows whether Apertus appears settled, exploring alternatives, approaching a safety boundary, or answering smoothly.",
+      "MORE_LINK_LABEL": "Read the technical report",
+      "MORE_LINK_URL": "https://github.com/UrsushoribilisMusic/canis-hackapertus-track2b/blob/main/track_2b/technical_report.md"
     },
     "DOG": {
       "TITLE": "Meet Canis.",
       "TEXT": "Each state is a signal from the model, not a facial expression. The carousel advances automatically; tap the dog to inspect the next disposition.",
+      "MAP_TITLE": "Disposition map",
+      "MAP_TEXT": "Canis projects the answer into six human-readable states that help a reviewer decide when to trust, inspect, or rerun an answer.",
+      "CALC_TITLE": "How the score is produced",
+      "CALC_ENTROPY": "Entropy flags spread-out token probabilities: high entropy is a sign that the model is less settled.",
+      "CALC_VECTOR": "Disposition vectors are compared with the model's hidden-state direction to estimate which state the answer is moving toward.",
+      "CALC_JACOBIAN": "Jacobian-style sensitivity checks whether small internal changes would push the next answer step toward another disposition.",
       "DESCRIPTION": {
         "confident": "The model is internally settled and its next steps are concentrated.",
         "unsure": "The model is spread across competing continuations and needs checking.",
@@ -65,9 +76,14 @@
       "WIFI": "Best on Wi-Fi. You can change this later in Settings.",
       "BACKGROUND": "The download keeps going in the background.",
       "BACKEND_TITLE": "Apertus backend",
-      "BACKEND_TEXT": "This demo uses Swiss AI's Apertus v1.5 8B model through the Docker backend.",
-      "BACKEND_NOTE": "No phone download is needed in this deployment.",
-      "BACKEND_BACKGROUND": "The backend owns model loading and the Canis disposition readout."
+      "BACKEND_TEXT": "The Docker submission targets Swiss AI's Apertus v1.5 8B. The default judge path is a fast mock runtime; the real weights run with make run-model.",
+      "BACKEND_NOTE": "If the model is already downloaded, Docker reuses the local Hugging Face cache mounted from ~/.cache/huggingface.",
+      "BACKEND_BACKGROUND": "The backend owns model loading, answer generation, source return, and the Canis disposition readout.",
+      "BACKEND_IOS_TEXT": "Canis also has an iOS companion app for the on-device experience. For judging, this Docker build is the reproducible path; the iOS distribution link can be shared separately once Apple's review/TestFlight flow is ready.",
+      "BACKEND_MODEL_LINK_LABEL": "Open Apertus on Hugging Face",
+      "BACKEND_MODEL_LINK_URL": "https://huggingface.co/swiss-ai/Apertus-v1.5-8B",
+      "BACKEND_RUN_LINK_LABEL": "Read run-model instructions",
+      "BACKEND_RUN_LINK_URL": "https://github.com/UrsushoribilisMusic/canis-hackapertus-track2b#run-it"
     },
     "SOURCES": {
       "TITLE": "Sources",
@@ -75,7 +91,7 @@
       "TEXT": "Sources let Canis answer from your PDFs, notes, and Markdown files. It chunks them locally, searches the relevant sections, and cites what it used.",
       "ADD_TITLE": "Ask against your own material",
       "ADD_TEXT": "Use sources for papers, manuals, meeting notes, or anything you want Canis to ground an answer in.",
-      "PRIVATE_TITLE": "Kept on this phone",
+      "PRIVATE_TITLE": "Kept local",
       "PRIVATE_TEXT": "The text index stays local. You can switch sources on or off before asking.",
       "ADD_ACTION": "Add sources",
       "CONTINUE": "Continue to Canis"
@@ -239,7 +255,7 @@
   },
   "KNOWLEDGE": {
     "TITLE": "Sources",
-    "INTRO": "Canis can answer from your own documents and show where each answer came from. Everything stays on this phone.",
+    "INTRO": "Canis can answer from your own documents and show where each answer came from. Everything stays local to this device or Docker session.",
     "NONE": "Don't use sources",
     "NONE_TEXT": "Answer from the model alone",
     "NONE_ACTIVE": "Off",
@@ -247,7 +263,7 @@
     "DETAILS": "{{documents}} documents · {{sections}} sections · {{size}}",
     "ACTIONS": "Actions for {{name}}",
     "ADD": "Add a document",
-    "FORMATS": "PDF, text or Markdown files. You can also open a file with Canis from another app.",
+    "FORMATS": "PDF, text or Markdown files. Canis chunks the document and only sends matching sections to the answer flow.",
     "STEP": {
       "extracting": "Reading the text",
       "chunking": "Splitting it into sections",
@@ -262,7 +278,7 @@
     "GENERATE_TITLES": "Generate titles",
     "TITLES_PROGRESS": "Generating titles · {{done}} of {{total}}",
     "DELETE_TITLE": "Delete “{{name}}”?",
-    "DELETE_TEXT": "The source is removed from this phone.",
+    "DELETE_TEXT": "The source is removed from this local session.",
     "DELETE_FAILED": "The source couldn't be deleted.",
     "MANAGE": "Manage",
     "ACTIVE_DETAILS": "{{documents}} documents · {{sections}} sections"

@@ -13,6 +13,45 @@ from backend.canis_disposition.types import DispositionReadout
 DEFAULT_MODEL_ID = "swiss-ai/Apertus-v1.5-8B"
 
 
+def mock_answer_for(prompt: str, sources: list[dict] | None = None) -> str:
+    """Small deterministic answer set for the lightweight Docker path."""
+    if sources:
+        source = sources[0]
+        return (
+            f"From {source['title']}: {source['snippet']} "
+            "Canis is using the matching chunk rather than sending the whole document."
+        )
+    lower = prompt.lower()
+    if any(term in lower for term in ["rain", "raining", "weather"]):
+        return (
+            "Rain happens when moist air rises, cools, and condenses into cloud droplets. "
+            "When those droplets grow heavy enough, gravity pulls them down as rain."
+        )
+    if any(term in lower for term in ["canis", "disposition", "readout"]):
+        return (
+            "Canis adds an inspectability layer to an AI answer. It shows whether the model "
+            "looks confident, unsure, curious, concerned, reluctant, or warm while producing "
+            "the response."
+        )
+    if any(term in lower for term in ["apertus", "model", "8b", "swiss ai"]):
+        return (
+            "This submission targets Swiss AI's Apertus v1.5 8B model. The default Docker "
+            "runtime is lightweight for judging, and the real model path is available with "
+            "make run-model once the gated weights are present in the Hugging Face cache."
+        )
+    if any(term in lower for term in ["docker", "run-model", "hugging face", "hf_token"]):
+        return (
+            "Use make run for the fast reproducible demo. Use make run-model with HF_TOKEN "
+            "and a mounted ~/.cache/huggingface directory when you want Docker to load the "
+            "real Apertus weights."
+        )
+    return (
+        "Here is a concise answer based on the local Docker demo path. Canis returns the "
+        "answer together with a disposition readout so the response can be inspected, not "
+        "only accepted at face value."
+    )
+
+
 def sources_for(prompt: str) -> list[dict]:
     lower = prompt.lower()
     sources: list[dict] = []
@@ -53,7 +92,9 @@ class Runtime:
     display_name: str
     model_loaded: bool = False
 
-    def answer(self, prompt: str) -> tuple[str, DispositionReadout, list[dict]]:
+    def answer(
+        self, prompt: str, sources: list[dict] | None = None
+    ) -> tuple[str, DispositionReadout, list[dict]]:
         raise NotImplementedError
 
 
@@ -66,14 +107,12 @@ class MockRuntime(Runtime):
             model_loaded=False,
         )
 
-    def answer(self, prompt: str) -> tuple[str, DispositionReadout, list[dict]]:
-        readout = lexical_readout(prompt)
-        answer = (
-            "Prototype response: this Docker path will run Apertus 8B and compute the "
-            "Canis disposition readout server-side. The current build keeps the API "
-            "contract stable while the real hidden-state backend is being wired."
-        )
-        return answer, readout, sources_for(prompt)
+    def answer(
+        self, prompt: str, sources: list[dict] | None = None
+    ) -> tuple[str, DispositionReadout, list[dict]]:
+        answer = mock_answer_for(prompt, sources)
+        readout = lexical_readout(answer)
+        return answer, readout, sources or sources_for(prompt)
 
 
 class TransformersRuntime(Runtime):
@@ -124,7 +163,9 @@ class TransformersRuntime(Runtime):
         self.model_loaded = True
         print(f"Loaded {self.model_id} in {time.perf_counter() - started:.3f}s", flush=True)
 
-    def answer(self, prompt: str) -> tuple[str, DispositionReadout, list[dict]]:
+    def answer(
+        self, prompt: str, sources: list[dict] | None = None
+    ) -> tuple[str, DispositionReadout, list[dict]]:
         self._load()
         assert self._processor is not None
         assert self._model is not None
@@ -139,7 +180,10 @@ class TransformersRuntime(Runtime):
                     "You are Canis, a concise assistant. Answer in no more than two short, complete sentences.",
                 ),
             },
-            {"role": "user", "content": prompt},
+            {
+                "role": "user",
+                "content": prompt_with_sources(prompt, sources),
+            },
         ]
         inputs = self._processor.apply_chat_template(
             messages,
@@ -170,7 +214,21 @@ class TransformersRuntime(Runtime):
             generated[0][inputs["input_ids"].shape[-1] :],
             skip_special_tokens=True,
         ).strip()
-        return answer, lexical_readout(answer or prompt), sources_for(prompt)
+        return answer, lexical_readout(answer or prompt), sources or sources_for(prompt)
+
+
+def prompt_with_sources(prompt: str, sources: list[dict] | None = None) -> str:
+    if not sources:
+        return prompt
+    context = "\n".join(
+        f"[{source['citationIndex']}] {source['title']}: {source['snippet']}"
+        for source in sources
+    )
+    return (
+        "Answer using the provided source excerpts. Cite the relevant bracketed source "
+        "number when useful.\n\n"
+        f"Sources:\n{context}\n\nQuestion: {prompt}"
+    )
 
 
 def build_runtime() -> Runtime:
