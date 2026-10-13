@@ -53,7 +53,9 @@ def models() -> dict:
             {
                 "id": runtime.model_id,
                 "name": runtime.display_name,
-                "status": "loaded" if runtime.model_loaded else "planned",
+                "status": "loaded"
+                if runtime.model_loaded
+                else ("setupRequired" if runtime.name == "mock" else "planned"),
                 "runtime": runtime.name,
             }
         ]

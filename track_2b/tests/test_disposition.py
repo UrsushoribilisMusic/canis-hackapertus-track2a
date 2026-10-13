@@ -86,13 +86,15 @@ class DispositionTests(unittest.TestCase):
         self.assertIn("curious", web["scores"])
         self.assertGreater(web["scores"]["curious"], 0.9)
 
-    def test_mock_runtime_answers_question_without_scaffolding_text(self):
+    def test_mock_runtime_explains_how_to_attach_apertus(self):
         answer, readout, _sources = MockRuntime().answer("Why does it rain?")
 
-        self.assertIn("moist air", answer)
+        self.assertIn("Apertus v1.5 8B is not attached", answer)
+        self.assertIn("make run-model", answer)
+        self.assertNotIn("moist air", answer)
         self.assertNotIn("Prototype response", answer)
         self.assertNotIn("being wired", answer)
-        self.assertEqual(readout.to_web()["disposition"], "neutral")
+        self.assertEqual(readout.to_web()["disposition"], "concerned")
 
     def test_knowledge_store_chunks_and_searches_sources(self):
         store = KnowledgeStore()
@@ -124,7 +126,9 @@ class DispositionTests(unittest.TestCase):
 
         answer, _readout, returned_sources = MockRuntime().answer("Why rain?", sources)
 
-        self.assertIn("From Rain note", answer)
+        self.assertIn("Apertus is not attached", answer)
+        self.assertIn("Rain note", answer)
+        self.assertIn("make run-model", answer)
         self.assertEqual(returned_sources, sources)
 
 

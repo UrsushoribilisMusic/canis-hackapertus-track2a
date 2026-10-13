@@ -15,41 +15,24 @@ DEFAULT_MODEL_ID = "swiss-ai/Apertus-v1.5-8B"
 
 
 def mock_answer_for(prompt: str, sources: list[dict] | None = None) -> str:
-    """Small deterministic answer set for the lightweight Docker path."""
+    """Deterministic answer for the lightweight Docker path.
+
+    The mock path must not impersonate the real model. It keeps the browser and
+    API inspectable while making the missing Apertus attachment explicit.
+    """
     if sources:
         source = sources[0]
         return (
-            f"From {source['title']}: {source['snippet']} "
-            "Canis is using the matching chunk rather than sending the whole document."
-        )
-    lower = prompt.lower()
-    if any(term in lower for term in ["rain", "raining", "weather"]):
-        return (
-            "Rain happens when moist air rises, cools, and condenses into cloud droplets. "
-            "When those droplets grow heavy enough, gravity pulls them down as rain."
-        )
-    if any(term in lower for term in ["canis", "disposition", "readout"]):
-        return (
-            "Canis adds an inspectability layer to an AI answer. It shows whether the model "
-            "looks confident, unsure, curious, concerned, reluctant, or warm while producing "
-            "the response."
-        )
-    if any(term in lower for term in ["apertus", "model", "8b", "swiss ai"]):
-        return (
-            "This submission targets Swiss AI's Apertus v1.5 8B model. The default Docker "
-            "runtime is lightweight for judging, and the real model path is available with "
-            "make run-model once the gated weights are present in the Hugging Face cache."
-        )
-    if any(term in lower for term in ["docker", "run-model", "hugging face", "hf_token"]):
-        return (
-            "Use make run for the fast reproducible demo. Use make run-model with HF_TOKEN "
-            "and a mounted ~/.cache/huggingface directory when you want Docker to load the "
-            "real Apertus weights."
+            f"Apertus is not attached in this fast Docker run, so I will not pretend to "
+            f"answer from the model. Your active source matched {source['title']}: "
+            f"{source['snippet']} Restart with `HF_TOKEN=... make run-model` to ask "
+            f"swiss-ai/Apertus-v1.5-8B against this retrieved chunk."
         )
     return (
-        "Here is a concise answer based on the local Docker demo path. Canis returns the "
-        "answer together with a disposition readout so the response can be inspected, not "
-        "only accepted at face value."
+        "Apertus v1.5 8B is not attached in this fast Docker run, so Canis is not "
+        "answering the question yet. Stop this container and start the real model path "
+        "with `HF_TOKEN=... make run-model`; it mounts `~/.cache/huggingface` into "
+        "Docker and loads swiss-ai/Apertus-v1.5-8B locally."
     )
 
 
@@ -81,6 +64,15 @@ def sources_for(prompt: str) -> list[dict]:
                 "citationIndex": len(sources) + 1,
                 "title": "Track 2B Docker runtime",
                 "snippet": "The submission is packaged for on-premise Docker execution with a FastAPI backend and browser UI.",
+            }
+        )
+    if not sources:
+        sources.append(
+            {
+                "sectionId": "attach-apertus-runtime",
+                "citationIndex": 1,
+                "title": "Attach Apertus 1.5 8B",
+                "snippet": "Run `HF_TOKEN=... make run-model` from the repository root. The command builds the model image, mounts `~/.cache/huggingface`, and serves Canis with CANIS_ENABLE_MODEL=1.",
             }
         )
     return sources[:3]
