@@ -4,7 +4,7 @@ Date: 2026-10-08
 
 ## Submission Constraint
 
-HackApertus Track 2A expects the project to run from a clean checkout via:
+HackApertus Track 2B expects the project to run from a clean checkout via:
 
 ```bash
 make run
@@ -80,7 +80,7 @@ browser UI dog/avatar + token readout
 
 ## Backend Milestones
 
-1. Create `track_2a/src/backend/` with FastAPI.
+1. Create `track_2b/src/backend/` with FastAPI.
 2. Add endpoints:
    - `GET /api/health`
    - `GET /api/models`
@@ -204,7 +204,7 @@ The iOS engine uses internal names:
 
 ### Python Modules
 
-Add `track_2a/src/backend/canis_disposition/`:
+Add `track_2b/src/backend/canis_disposition/`:
 
 - `types.py`: dataclasses/enums for dispositions, readouts, tokens.
 - `lexical.py`: direct Python port of the current Swift lexical fallback.

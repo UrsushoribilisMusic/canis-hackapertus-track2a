@@ -1,6 +1,6 @@
 # Canis Docker Runbook
 
-This directory is the HackApertus Track 2A Docker target for Canis.
+This directory is the HackApertus Track 2B Docker target for Canis.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ This starts the Dockerized Canis web app with the deterministic mock runtime.
 It is fast and useful for checking the UI, routes, and API contract.
 
 ```bash
-cd /Users/miguelrodriguez/projects/canis-hackapertus-track2a/track_2a
+cd track_2b
 make run
 ```
 
@@ -31,7 +31,7 @@ This starts the same web app backed by `swiss-ai/Apertus-v1.5-8B` through
 Swiss AI's pinned Transformers branch.
 
 ```bash
-cd /Users/miguelrodriguez/projects/canis-hackapertus-track2a/track_2a
+cd track_2b
 export HF_TOKEN=...
 make run-model
 ```
@@ -82,8 +82,8 @@ Jacobian-space readout is being wired.
 
 ```bash
 docker ps
-docker logs --tail 120 canis-track2a
-docker stop canis-track2a
+docker logs --tail 120 canis-track2b
+docker stop canis-track2b
 make test
 make probe-model
 ```
