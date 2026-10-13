@@ -32,16 +32,28 @@ Swiss AI's pinned Transformers branch.
 
 ```bash
 cd track_2b
-export HF_TOKEN=...
+export HF_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 make run-model
 ```
+
+If `make run` is already serving the fast mock container, stop it with `Ctrl-C`
+before starting `make run-model`.
 
 The default real-model run uses:
 
 - `CANIS_ENABLE_MODEL=1`
 - `CANIS_MODEL_ID=swiss-ai/Apertus-v1.5-8B`
 - `CANIS_MAX_NEW_TOKENS=32`
-- host cache mounted from `~/.cache/huggingface`
+- host cache mounted from `${HF_CACHE:-~/.cache/huggingface}`
+
+Use an explicit cache path when the model files live somewhere else:
+
+```bash
+HF_CACHE=/path/to/huggingface-cache make run-model
+```
+
+If the mounted cache does not contain Apertus yet, Transformers will download
+the full gated model into that cache before the first answer.
 
 Override the token cap when needed:
 

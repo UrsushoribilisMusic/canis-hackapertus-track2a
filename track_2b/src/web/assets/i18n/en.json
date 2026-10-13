@@ -188,6 +188,13 @@
     "ANSWERS_ONE": "1 answer",
     "CERTAINTY_BADGE": "{{percent}}% certain",
     "PACKS_ONBOARDING": "While the model downloads, add sources from your documents. Canis can then answer from those sources and cite the sections it used.",
+    "MODEL_SETUP": {
+      "TITLE": "Attach Apertus before asking real questions",
+      "TEXT": "{{name}} is not visible inside this Docker container yet. Docker cannot browse models installed on the host unless you mount the Hugging Face cache or another model directory into the container.",
+      "COMMAND_LABEL": "Stop this fast server, then run",
+      "CACHE_TEXT": "Hugging Face access tokens usually start with hf_. Replace the x's with your authorized token. If the model is already downloaded somewhere else, point HF_CACHE at that cache before running the command.",
+      "RESTART_TEXT": "Yes, this means pressing Ctrl-C in the current make run terminal and starting it again with make run-model. If the cache does not contain Apertus yet, Transformers will download the full gated model into the mounted cache before the first answer."
+    },
     "INTERMEZZO": {
       "KICKER": "While Docker thinks",
       "DOCKER_NOTE": "This Docker demo is deliberately reproducible for judges, but CPU/offload generation is much slower than the real Canis iOS app running local MLX inference.",

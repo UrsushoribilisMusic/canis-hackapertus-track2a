@@ -188,6 +188,13 @@
     "ANSWERS_ONE": "1 Antwort",
     "CERTAINTY_BADGE": "{{percent}}% sicher",
     "PACKS_ONBOARDING": "Während das Modell lädt, kannst du Quellen aus deinen Dokumenten hinzufügen. Canis kann dann daraus antworten und die verwendeten Abschnitte zitieren.",
+    "MODEL_SETUP": {
+      "TITLE": "Apertus verbinden, bevor echte Fragen gestellt werden",
+      "TEXT": "{{name}} ist in diesem Docker-Container noch nicht sichtbar. Docker kann Modelle auf dem Host nicht durchsuchen, ausser der Hugging-Face-Cache oder ein anderes Modellverzeichnis wird in den Container gemountet.",
+      "COMMAND_LABEL": "Diesen schnellen Server stoppen, dann ausführen",
+      "CACHE_TEXT": "Hugging-Face-Tokens beginnen normalerweise mit hf_. Ersetze die x durch dein berechtigtes Token. Wenn das Modell bereits anderswo geladen ist, setze HF_CACHE auf diesen Cache, bevor du den Befehl ausführst.",
+      "RESTART_TEXT": "Ja, das bedeutet Ctrl-C im aktuellen make-run-Terminal und danach Neustart mit make run-model. Wenn der Cache Apertus noch nicht enthält, lädt Transformers das vollständige gated Modell vor der ersten Antwort in den gemounteten Cache."
+    },
     "INTERMEZZO": {
       "KICKER": "Während Docker denkt",
       "DOCKER_NOTE": "Diese Docker-Demo ist bewusst reproduzierbar für die Jury, aber CPU-/Offload-Generierung ist viel langsamer als die echte Canis-iOS-App mit lokaler MLX-Inferenz.",

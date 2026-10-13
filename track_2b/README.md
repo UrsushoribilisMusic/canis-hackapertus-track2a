@@ -84,12 +84,20 @@ Current Canis status:
   disposition readout.
 - `make run-model` starts the same browser/API app backed by
   `swiss-ai/Apertus-v1.5-8B` through Swiss AI's Transformers branch. It mounts
-  the host Hugging Face cache and sets `CANIS_ENABLE_MODEL=1`.
+  the host Hugging Face cache and sets `CANIS_ENABLE_MODEL=1`. If `make run`
+  is already active, stop it with `Ctrl-C` before running `make run-model`.
 - `make test` runs the stdlib Python unit tests for the disposition resolver.
 - `make probe-model` builds the heavier Transformers image and probes Apertus
   tensors using the host Hugging Face cache mounted into Docker.
 - `swiss-ai/Apertus-v1.5-8B` is gated on Hugging Face. Export `HF_TOKEN`
   with an authorized token before probing or running the real model path.
+  Hugging Face tokens usually start with `hf_`; examples use
+  `hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` so no real token is committed.
+- By default, Canis mounts `~/.cache/huggingface` into Docker. If the Apertus
+  files are already in another Hugging Face cache, run
+  `HF_CACHE=/path/to/huggingface-cache make run-model`. If the mounted cache
+  does not contain `swiss-ai/Apertus-v1.5-8B`, Transformers will download the
+  full gated model into that cache before the first answer.
 - Apertus 1.5 is not supported by the released Transformers package yet; the
   model probe installs Swiss AI's pinned Transformers branch with text/vision
   support. Audio extras are intentionally omitted from the probe image.
