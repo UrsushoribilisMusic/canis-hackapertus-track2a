@@ -187,7 +187,38 @@
     "FIRST_QUOTE": "Hi, I'm Canis. Ask me something and I'll show you how sure I am, right here.",
     "ANSWERS_ONE": "1 answer",
     "CERTAINTY_BADGE": "{{percent}}% certain",
-    "PACKS_ONBOARDING": "While the model downloads, add sources from your documents. Canis can then answer from those sources and cite the sections it used."
+    "PACKS_ONBOARDING": "While the model downloads, add sources from your documents. Canis can then answer from those sources and cite the sections it used.",
+    "INTERMEZZO": {
+      "KICKER": "While Docker thinks",
+      "DOCKER_NOTE": "This Docker demo is deliberately reproducible for judges, but CPU/offload generation is much slower than the real Canis iOS app running local MLX inference.",
+      "DOWNLOAD_LABEL": "Canis iOS app and download page",
+      "DOWNLOAD_URL": "https://canis.flotilla.cc/download",
+      "transparency": {
+        "TAB": "Transparency",
+        "TITLE": "AI needs inspectable answers, not only polished answers.",
+        "TEXT": "Society is being asked to trust model outputs in education, health, administration, and science. Canis explores a practical transparency layer: instead of exposing private chain-of-thought text, it reads internal model dynamics and estimates a disposition signal. A Jacobian-style probe is useful because it measures sensitivity inside the model without asking the model to narrate hidden reasoning."
+      },
+      "ios": {
+        "TAB": "iOS / MLX",
+        "TITLE": "The product path is the iOS app, not a slow Docker box.",
+        "TEXT": "Our first on-device build ran a 4B model in an iOS app with MLX. The hard engineering work was memory pressure, thermal behavior, model lifecycle, and keeping the UI responsive while inference runs locally. That path is the actual Canis product experience: private, fast enough for a phone, and suitable for everyday users."
+      },
+      "jacobian": {
+        "TAB": "Jacobian",
+        "TITLE": "The disposition is a distribution, not a mascot mood.",
+        "TEXT": "Canis compares the model's current hidden-state direction with disposition vectors such as confident, unsure, curious, concerned, reluctant, and warm. The Jacobian-style calculation asks how small internal changes would move the next step toward those vectors. We show the winning disposition and the remaining percentages because ambiguity is itself useful evidence."
+      },
+      "sources": {
+        "TAB": "Sources",
+        "TITLE": "Small local models are strong when the task is grounded.",
+        "TEXT": "The sources feature lets a user upload documents, chunk them locally, retrieve the relevant sections, and ask the model against those snippets. This RAG pattern is a good fit for local AI: the model does not need to memorize private material, and Canis can cite the sections it used instead of swallowing an entire file."
+      },
+      "swiss": {
+        "TAB": "Swiss public",
+        "TITLE": "The goal is broader AI understanding, not only another assistant.",
+        "TEXT": "Canis is designed as a public-facing explanation tool for Swiss AI literacy. By showing uncertainty, alternatives, source grounding, and disposition mix, it helps non-specialists see that model answers are generated processes with tradeoffs, not magic statements of truth."
+      }
+    }
   },
   "MODELS": {
     "ACTIVE": "Active",
