@@ -207,7 +207,7 @@
       "NOTE": "On good hardware this may take about a minute. On CPU or offload-heavy Docker runs, our tests have taken several minutes for one question, so the moving bar means the request is still alive."
     },
     "INTERMEZZO": {
-      "KICKER": "While Docker thinks",
+      "KICKER": "While Canis thinks",
       "DOCKER_NOTE": "This Docker demo is deliberately reproducible for judges, but CPU/offload generation is much slower than the real Canis iOS app running local MLX inference.",
       "DOWNLOAD_LABEL": "Canis iOS app and download page",
       "DOWNLOAD_URL": "https://canis.flotilla.cc/download",
