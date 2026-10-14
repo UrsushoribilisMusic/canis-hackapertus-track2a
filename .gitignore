@@ -16,6 +16,11 @@ __pycache__/
 .venv/
 venv/
 
+# LaTeX build scratch files
+*.aux
+*.log
+*.out
+
 # Node
 node_modules/
 dist/

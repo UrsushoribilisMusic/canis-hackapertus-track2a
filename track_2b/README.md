@@ -1,16 +1,26 @@
-# Track 2 B: Own Project
+# Canis Apertus Lab — Track 2B
 
 Canis is a working Apertus prototype for making an AI answer more inspectable.
 It pairs a browser chat demo with a Dockerized FastAPI backend that can run in
 deterministic mock mode or with `swiss-ai/Apertus-v1.5-8B` through Swiss AI's
 Transformers branch.
 
-Bring your own idea and build a working Apertus prototype that tackles a problem you care about — any domain, any use case. The project must be new, started within the hackathon period.
+The demo returns an answer plus a Canis disposition readout: whether the model
+appears confident, unsure, curious, concerned, reluctant, warm, or neutral. It
+also supports private source upload, so judges can add a PDF, Markdown, or text
+file and ask questions grounded in local snippets.
 
-Submissions must use the Apertus model family.
-For Track 2 this means that submitted solutions must be built with Apertus. Other open-weights models can be used to support development, e.g. as automatic judges during evaluation. Their role must be clearly described in the submission report.
+## Why this project exists
 
-💬 In case you have questions, join the conversation on [Discord](https://discord.gg/hack-apertus) or send an email to “hello@hackapertus.ch”
+Canis demonstrates a product advantage of open weights. A closed API can return
+text, but it usually cannot expose internal model-state signals. Apertus can run
+locally and can be inspected, so Canis can add an additional trust signal beside
+the answer. That signal can help users, enterprises, and reviewers decide when
+an answer looks settled, exploratory, cautious, or in need of escalation.
+
+The companion iOS app is the product reference implementation and runs much
+faster with MLX on Apple silicon. This repository is the reproducible Docker
+submission for judges and on-premise evaluation.
 
 ---
 
@@ -44,7 +54,7 @@ model weights and Hugging Face caches are not committed to this repository.
 
 ---
 
-## Run it
+## Quick start
 
 From this directory:
 
@@ -80,8 +90,8 @@ PORT=8081 make run
 Current Canis status:
 
 - `make run` starts a Dockerized FastAPI backend and browser demo.
-- The default runtime is a deterministic mock plus the Canis lexical fallback
-  disposition readout.
+- The default runtime is a deterministic mock plus the Canis readout contract.
+  It exists so judges can verify the whole interface quickly and reliably.
 - `make run-model` starts the same browser/API app backed by
   `swiss-ai/Apertus-v1.5-8B` through Swiss AI's Transformers branch. It mounts
   the host Hugging Face cache and sets `CANIS_ENABLE_MODEL=1`. If `make run`
@@ -120,6 +130,17 @@ Current Canis status:
   has previously failed in native Angular cache dependencies, so this bundle was
   produced in a Linux `node:22.22.3-bookworm` container.
 
+## What to try
+
+1. Run `make run`.
+2. Ask a simple question such as `What are truffles?`.
+3. Inspect the answer plus disposition readout.
+4. Open Sources, upload a PDF/text/Markdown file, and ask a question about that file.
+5. Toggle sources off and ask again to see the difference between model-only and source-grounded answers.
+
+The default path is intentionally deterministic. The real Apertus path is more
+interesting technically but much slower on CPU/offload-heavy Docker setups.
+
 ## Target architecture
 
 Canis targets Track 2B architecture **a) On-premise**. The prototype is packaged
@@ -127,6 +148,50 @@ as Docker images and can run on an organization's own infrastructure. The
 default `make run` path is self-contained after image build. The real-model
 path uses locally mounted Hugging Face weights/cache and does not require a
 hosted inference API at runtime once the model files are present.
+
+## Architecture
+
+The detailed architecture is documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+In short:
+
+| Layer | Implementation |
+| --- | --- |
+| Browser UI | Built Canis web app in `src/web/`, including chat, source manager, history, settings, and progress/intermezzo panels. |
+| API backend | FastAPI in `src/backend/app.py`, serving static assets plus health, model, chat, source, and disposition endpoints. |
+| Runtime | `src/backend/runtime.py` selects deterministic mode or Apertus Transformers mode. |
+| Source/RAG flow | `src/backend/knowledge.py` extracts, chunks, retrieves, and cites local document snippets. |
+| Disposition readout | `src/backend/canis_disposition/` contains lexical fallback, hidden-direction scoring, forward-lens projection, entropy helpers, and shared types. |
+
+## Disposition readout
+
+The final product dispositions are:
+
+| Disposition | Meaning |
+| --- | --- |
+| Confident | The model is converging cleanly on an answer. |
+| Unsure | The answer is plausible, but the signal is less settled. |
+| Curious | The model is exploring context or opening a new line of thought. |
+| Concerned | The model appears to detect risk, sensitivity, or a boundary condition. |
+| Reluctant | The model is holding back or avoiding an unsafe path. |
+| Warm | The model is helpful, supportive, and user-aligned. |
+| Neutral | No disposition direction dominates. |
+
+The research method is forward-only: project the model hidden state into a
+J-space/logit-lens representation, score it against compact disposition
+directions, and report the strongest direction plus alternatives. The Docker
+runtime attempts that path when Apertus hidden states and logits are available.
+If the active local Transformers runtime cannot expose those tensors, Canis
+falls back to a lexical readout so the demo remains usable. The fallback is a
+reliability guard for judge reproducibility; the technical claim is the
+forward-only hidden-state/J-space method documented in the report.
+
+## Deliverables
+
+- [technical_report.md](technical_report.md): markdown report.
+- [CanisApertusLab_Report.pdf](CanisApertusLab_Report.pdf): PDF report for upload.
+- [ARCHITECTURE.md](ARCHITECTURE.md): implementation details.
+- `src/`: runnable browser/backend prototype.
+- Demo video URL: submitted separately via the HackApertus form.
 
 ---
 

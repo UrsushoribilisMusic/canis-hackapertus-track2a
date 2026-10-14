@@ -1,58 +1,83 @@
-# Hack Apertus — project template
+# Canis Apertus Lab — HackApertus Track 2B
 
-Template repository for [Hack Apertus](https://hackapertus.ch/) submissions.
-Every project keeps almost the same layout, so organizers and judges find the
-same things in the same place.
+Canis is a HackApertus Track 2B submission that makes Apertus answers more
+inspectable. It returns the normal answer plus a compact disposition readout:
+whether the model appears confident, unsure, curious, concerned, reluctant,
+warm, or neutral.
 
-## Select your track
+The central idea is simple: open weights make new product signals possible.
+Canis uses local model access to expose a model-state signal that closed hosted
+APIs normally hide, while keeping prompts and user documents local.
 
-This repository contains the Canis Hack Apertus submission for `track_2b`.
+## What is in this repository
+
+This repository contains the Canis Docker/browser submission in `track_2b/`.
 The original template directories for the other tracks have been removed.
-
-## The structure
 
 | Path | What it is |
 | --- | --- |
-| `README.md` | The challenge description and submission requirements for your track |
-| `technical_report.md` | The deeper write-up: architecture, evaluation, limitations |
-| `Makefile` | `make run` must spin up your project |
-| `src/` | Your code |
-| `data/` | Datasets — max. 100 MB |
-| `findings/` | Issue files — `track_1a` only |
-| `docs/` | Diagrams, notes, longer write-ups |
+| `Makefile` | Delegates `make run`, `make run-model`, and `make test` to `track_2b/`. |
+| `track_2b/README.md` | Judge-facing setup, runtime, model, and submission notes. |
+| `track_2b/ARCHITECTURE.md` | Detailed Docker/web/backend/source/readout architecture. |
+| `track_2b/technical_report.md` | Markdown version of the technical report. |
+| `track_2b/CanisApertusLab_Report.pdf` | PDF technical report for submission. |
+| `track_2b/src/` | FastAPI backend, disposition code, source flow, and built browser UI. |
+| `track_2b/docs/` | Report figures and disposition header assets. |
+| `track_2b/data/` | Empty placeholder; no dataset is bundled. |
 
-The submission source lives in `track_2b/`. A root `Makefile` delegates to the
-track directory so `make run` works both from this repository root and from
-`track_2b/`.
+## Quick start
 
-## Run it
-
-Judges run `make run` from the root of the project, on a clean checkout:
+From the repository root:
 
 ```bash
 make run
 ```
 
-`make run` is expected to run the project using Docker, since that
-is how the judges will run it.
-- If you used other local open-weight models, include instructions for running the project in your technical report.
-- Use the following environment variables:
+This builds the lightweight Docker image, starts the local web app, prints the
+URL, and opens the browser. Use `OPEN=0 make run` for headless review or
+`PORT=8081 make run` if port 8080 is already occupied.
+
+For the real Apertus path:
+
+```bash
+export HF_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+make run-model
 ```
-LLM_NAME — name and version of the model
-LLM_BASE_URL — endpoint base URL
-LLM_API_KEY — your API key
-```
 
-## Project
+`make run-model` loads `swiss-ai/Apertus-v1.5-8B` through Swiss AI's
+Transformers branch and mounts the host Hugging Face cache. Model weights are
+not committed to this repository.
 
-Canis is a browser demo and API backend for making an Apertus answer more
-inspectable. It returns the model answer together with a Canis disposition
-readout: a concise signal for whether the answer appears confident, unsure,
-curious, concerned, reluctant, warm, or neutral.
+## Product summary
 
-See [track_2b/README.md](track_2b/README.md) for the Track 2B requirements and
-Canis-specific runtime notes.
+Canis has two product paths:
+
+- The iOS app is the product reference implementation: local MLX inference,
+  private document packs, and a polished Canis interface.
+- This Track 2B Docker repo is the reproducible judge/on-premise version:
+  browser UI, FastAPI backend, source upload, Docker startup, and optional
+  Apertus 1.5 8B runtime.
+
+The Docker path is slower than the iOS MLX path, especially on CPU/offload-heavy
+hardware. The UI includes progress and intermezzo content so users understand
+that local inference is still running.
+
+## Why it matters
+
+Canis demonstrates the commercial value of Apertus and open weights:
+
+- better user understanding of model answers,
+- local/private inference without overseas API traffic,
+- source-grounded answers from user documents,
+- explainability telemetry for enterprise workflows,
+- and a concrete interface for public education around Swiss open models.
+
+See [track_2b/ARCHITECTURE.md](track_2b/ARCHITECTURE.md) for system details and
+[track_2b/technical_report.md](track_2b/technical_report.md) for the full
+submission narrative.
 
 ## License
 
-All Hack Apertus projects are open-sourced. Please check our Terms & Conditions for specific licensing details (6. What you build is open source): https://hackapertus.ch/terms-and-conditions
+All Hack Apertus projects are open-sourced. Please check the HackApertus terms
+for specific licensing details:
+https://hackapertus.ch/terms-and-conditions
